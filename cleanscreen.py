@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-import subprocess
+import os
 
 
 def main() -> None:
-    subprocess.Popen("cls", shell=True)
+    os.system("cls")
 
 
 if __name__ == '__main__':
-    subprocess.Popen("cls", shell=True)
+    main()
