@@ -1,0 +1,58 @@
+{
+    "MyUsername": {
+        "Password": "drowssaPyM",
+        "Games": {
+            "My First Game": {
+                "Money": 1000,
+                "Experience": 10000,
+                "Level": 10,
+                "Silos": {
+                    "Grain": 100,
+                    "Carrots": 20
+                },
+                "Enclosures": [
+                    {
+                        "Sheeps": 2,
+                        "Hens": 3,
+                        "Cocks": 1,
+                        "Content": {
+                            "Eggs": [
+                                "2022-02-27T19:46:21.343959",
+                                "2022-02-27T20:46:21.343959"
+                            ],
+                            "Fertilized eggs": [
+                                "2020-03-27T19:46:21.343959"
+                            ],
+                            "Wool": [
+                                "2020-03-27T19:46:21.343959"
+                            ]
+                        }
+                    },
+                    {
+                        "Horses": 2,
+                        "Content": {
+                            "Busy horses": [
+                                "2022-02-27T19:46:21.343959",
+                                "2022-02-27T20:46:21.343959"
+                            ]
+                        }
+                    }
+                ],
+                "Fields": [
+                    {
+                        "Grain": [
+                            "2022-02-27T19:46:21.343959"
+                        ],
+                        "Carrots": [
+                            "2022-02-27T19:46:21.343959"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "FLAK": {
+        "Password": "osses",
+        "Games": {}
+    }
+}
