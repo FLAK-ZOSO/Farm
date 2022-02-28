@@ -1,0 +1,24 @@
+{
+    "Purchasables": {
+        "Animals": {
+            "Sheep": 1000,
+            "Hen": 300,
+            "Cock": 200
+        },
+        "Buildings": {
+            "Field": 5000,
+            "Enclosure": 10000
+        }
+    },
+    "Soldables": {
+        "Animals": {
+            "Sheep": 1000,
+            "Hen": 300,
+            "Cock": 200
+        },
+        "Crops": {
+            "Grain": 2,
+            "Carrot": 10
+        }
+    }
+}

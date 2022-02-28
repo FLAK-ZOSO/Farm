@@ -14,9 +14,9 @@ menu = """
 
 games = """
     |||||||||     //\\\\     ||\\\\    //|| ||||||||| ||||||||||
-    ||     __    //  \\\\    || \\\\  // || ||        ||
+    ||     __    //  \\\\    || \\\\  // || |||       |||
     ||     ||   //    \\\\   ||  \\\\//  || ||||||    ||||||||||
-    ||     ||  //||||||\\\\  ||        || ||                ||
+    ||     ||  //||||||\\\\  ||        || |||              |||
     ||||||||| //        \\\\ ||        || ||||||||| ||||||||||
     
     ------------------------------------------------------------
@@ -24,11 +24,24 @@ games = """
 
 
 silos = """
-    |||||||||| |||| ||        |||||||||| ||||||||||
-    ||          ||  ||        ||      || ||
-    ||||||||||  ||  ||        ||      || ||||||||||
-            ||  ||  ||        ||      ||         ||
-    |||||||||| |||| ||||||||| |||||||||| ||||||||||
+    |||||||||| ||||| |||       |||||||||| ||||||||||
+    |||         |||  |||       |||    ||| ||
+    ||||||||||  |||  |||       |||    ||| ||||||||||
+           |||  |||  |||       |||    |||         ||
+    |||||||||| ||||| ||||||||| |||||||||| ||||||||||
+
+    -----------------------------------------------
+"""
+
+
+shop = """
+    |||||||||| |||     ||| |||||||||| ||||||||||
+    |||        |||     ||| |||    ||| |||    |||
+    |||||||||| ||||||||||| |||    ||| ||||||||||
+           ||| |||     ||| |||    ||| |||
+    |||||||||| |||     ||| |||||||||| |||
+
+    --------------------------------------------
 """
 
 
@@ -45,7 +58,7 @@ Level: {dat["Level"]}
 """
 
 
-def silos_string(dat: dict) -> str:
+def silos_string(dat: dict) -> tuple[str, dict]:
     capacity = dat["Capacity"]
     left = capacity-sum(dat["Content"].values())
     output = f"""
@@ -63,3 +76,20 @@ def silos_string(dat: dict) -> str:
     output += f"    {line}\n"
     output += f"    {len(dictionary.keys())+1}) Back to the farm\n"
     return output, dictionary
+
+
+def shop_string(dat: dict, prices: dict) -> tuple[str, dict, dict]:
+    output = shop
+    output += "\n    BUY\n\n"
+    purchasables = prices["Purchasables"]
+    purchasables: dict = purchasables["Animals"] | purchasables["Buildings"]
+    soldables: dict = prices["Soldables"]
+    soldables: dict = soldables["Animals"] | soldables["Crops"]
+    dictionary_p = {str(index+1): value for index, value in enumerate(purchasables.keys())}
+    for index, key in dictionary_p.items():
+        output += f"    {index}) {key} [{purchasables[key]}$]\n"
+    output += "\n    SELL\n\n"
+    dictionary_s = {str(index+1): value for index, value in enumerate(soldables.keys())}
+    for index, key in dictionary_s.items():
+        output += f"    {int(index)+len(dictionary_p)}) {key} [{soldables[key]}$]\n"
+    return output, dictionary_p, dictionary_s

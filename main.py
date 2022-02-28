@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import account as a
 import data as d
+import objects as o
 import sys
 import text as t
 
@@ -9,11 +10,16 @@ import text as t
 sys.path.insert(0, "Login-validator-0.0.4") # This is still not used
 
 
+animals = {"Sheep", "Hen", "Cock"}
+buildings = {"Enclosure", "Field"}
+crops = {"Grain", "Carrot"}
+
+
 def main(user: str) -> None:
     while (True):
         a.cls.main()
         print(t.menu)
-        print(f"\n{user}, welcome to the menu, make your choice.\n")
+        print(f"\n  {user}, welcome to the menu, make your choice.")
         choice = input("> ")
         if (choice == '1'):
             games(user)
@@ -25,8 +31,9 @@ def games(user: str) -> None:
     a.cls.main()
     print(t.games)
     for index, value in enumerate(g_l := d.games_list(user)):
-        print(f"{index+1}) {value}")
+        print(f"    {index+1}) {value}")
     dictionary = {str(index+1): value for index, value in enumerate(g_l)}
+    print(f"    {len(dictionary.keys())+1}) Back to menu\n")
     answer = input("> ")
     try:
         farm(user, dictionary[answer])
@@ -42,21 +49,25 @@ def farm(user: str, game: str) -> None:
     print("1) Silos")
     print("2) Enclosures")
     print("3) Fields")
-    print("4) Back to my games\n")
+    print("4) Shop")
+    print("5) Back to my games\n")
     while True:
         answer = input('> ')
         if (answer == '1'):
             silos(user, game)
-            break
+            return
         elif (answer == '2'):
             enclosures(user, game)
-            break
+            return
         elif (answer == '3'):
             fields(user, game)
-            break
+            return
         elif (answer == '4'):
+            shop(user, game)
+            return
+        elif (answer == '5'):
             games(user)
-            break
+            return
 
 
 def silos(user: str, game: str) -> None:
@@ -71,7 +82,6 @@ def silos(user: str, game: str) -> None:
         farm(user, game)
         return
     sell(user, game, "Silos", good)
-    
 
 
 def enclosures(user: str, game: str) -> None:
@@ -82,8 +92,101 @@ def fields(user: str, game: str) -> None:
     ...
 
 
-def sell(user: str, game: str, container: str, good: str) -> int:
+def shop(user: str, game: str) -> None:
+    a.cls.main()
+    dat = d.shop(user, game)
+    prices = d.prices()
+    output, purchasables, soldables = t.shop_string(dat, prices)
+    print(output)
+    choice = input("> ")
+    try:
+        if (int(choice) <= len(purchasables.keys())): # They want to buy
+            item = purchasables[choice]
+            sell_ = False
+        elif (int(choice) > len(purchasables.keys())): # They want to sell
+            item = soldables[choice]
+            sell_ = True
+    except KeyError:
+        farm(user, game)
+    except ValueError:
+        farm(user, game)
+    if (sell_):
+        if (item in animals):
+            sell(user, game, "Enclosures", item)
+        elif (item in buildings):
+            sell(user, game, '', item)
+    else:
+        buy(user, game, item)
+
+
+def sell(user: str, game: str, container: str, item: str) -> int:
     ...
+
+
+def buy(user: str, game: str, item: str) -> int:
+    a.cls.main()
+    # Output
+    print(f"{item.upper()}")
+    # Availability
+    shop_ = d.shop(user, game)
+    shop_: dict[str, dict] = shop_["Availability"]
+    for category in shop_.values():
+        if (item in category.keys()):
+            shop_: dict = category
+            break
+    availability = shop_[item]
+    # Price
+    prices_ = d.prices()
+    prices_: dict[str, dict] = prices_["Purchasables"]
+    for category in prices_.values():
+        if (item in category.keys()):
+            prices_: dict[str, int] = category
+            break
+    price: int = prices_[item]
+    print(f"Availability: {availability}")
+    print(f"Price: {price}$\n")
+    while (True):
+        quantity = input("Quantity -> ")
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            continue
+        else:
+            break
+    quantity: int = min([quantity, availability])
+    total = price*quantity
+    print(f"\nQuantity: {quantity}\nTotal price: {total}")
+    print(f"\nConfirm? (y/n)")
+    answer = input("> ")
+    if (answer.lower() == 'y'):
+        money = d.money(user, game)
+        if (total > money):
+            print(f"{money} aren't enough, you need {total}")
+            quantity = money//price
+            total = total*price
+            print(f"Do you want to buy {quantity} {item}s for {total}? (y/n)")
+            if (input("> ").lower() != 'y'):
+                shop(user, game)
+        dat = d.game(user, game)
+        dat["Money"] -= total
+        if (item in animals):
+            for enclosure in dat["Enclosures"]:
+                left_ = enclosure["Capacity left"]
+                if (left_): # Space left for the new animal
+                    left = left_ - quantity
+                    quantity -= left_
+                    enclosure[item] += left_
+                    enclosure["Capacity left"] = left
+            if (quantity): # Still animals without space
+                print(f"There are still {quantity} {item}s without space")
+                print(f"You have had your {quantity*price}$ back")
+                dat["Money"] += quantity*price
+                input("> ")
+        elif (item in buildings):
+            dat["Money"] -= quantity*price
+            dat[f"{item}s"].append(o.new(item))
+        d.encode_game(user, game, dat)
+    shop(user, game)
 
 
 if (__name__ == '__main__'):

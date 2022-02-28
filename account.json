@@ -3,7 +3,7 @@
         "Password": "drowssaPyM",
         "Games": {
             "My First Game": {
-                "Money": 1000,
+                "Money": 90000,
                 "Experience": 10000,
                 "Level": 10,
                 "Silos": {
@@ -15,6 +15,8 @@
                 },
                 "Enclosures": [
                     {
+                        "Capacity": 6,
+                        "Capacity left": 0,
                         "Sheeps": 2,
                         "Hens": 3,
                         "Cocks": 1,
@@ -40,8 +42,38 @@
                         "Carrots": [
                             "2022-02-27T19:46:21.343959"
                         ]
+                    },
+                    {
+                        "Grain": [],
+                        "Carrots": []
                     }
-                ]
+                ],
+                "Shop": {
+                    "Stats": {
+                        "Sold": {
+                            "Grain": 30,
+                            "Carrots": 0
+                        },
+                        "Bought": {
+                            "Sheep": 2,
+                            "Hen": 3,
+                            "Cock": 1,
+                            "Field": 1,
+                            "Enclosure": 1
+                        }
+                    },
+                    "Availability": {
+                        "Animals": {
+                            "Sheep": 1,
+                            "Hen": 2,
+                            "Cock": 1
+                        },
+                        "Buildings": {
+                            "Field": 1,
+                            "Enclosure": 0
+                        }
+                    }
+                }
             }
         }
     }
