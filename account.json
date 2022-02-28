@@ -7,8 +7,11 @@
                 "Experience": 10000,
                 "Level": 10,
                 "Silos": {
-                    "Grain": 100,
-                    "Carrots": 20
+                    "Capacity": 150,
+                    "Content": {
+                        "Grain": 100,
+                        "Carrots": 20
+                    }
                 },
                 "Enclosures": [
                     {
@@ -27,15 +30,6 @@
                                 "2020-03-27T19:46:21.343959"
                             ]
                         }
-                    },
-                    {
-                        "Horses": 2,
-                        "Content": {
-                            "Busy horses": [
-                                "2022-02-27T19:46:21.343959",
-                                "2022-02-27T20:46:21.343959"
-                            ]
-                        }
                     }
                 ],
                 "Fields": [
@@ -50,9 +44,5 @@
                 ]
             }
         }
-    },
-    "FLAK": {
-        "Password": "osses",
-        "Games": {}
     }
 }

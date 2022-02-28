@@ -12,16 +12,18 @@ def main() -> str:
     while (True):
         choice = input('> ')
         if (choice == '1'):
-            if (not sign_up()):
+            user = sign_up()
+            if (not user):
                 quit()
+            return user
         elif (choice == '2'):
-            if (not sign_in()):
+            user = sign_in()
+            if (not user):
                 quit()
+            return user
         else:
             print(f"Option {choice} wasn't recognized")
             continue
-        break
-    cls.main()
 
 
 def sign_up() -> str:
