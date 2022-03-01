@@ -81,7 +81,7 @@ def silos(user: str, game: str) -> None:
     except KeyError:
         farm(user, game)
         return
-    sell(user, game, "Silos", good)
+    # d.information(good)
 
 
 def enclosures(user: str, game: str) -> None:
@@ -102,24 +102,15 @@ def shop(user: str, game: str) -> None:
     try:
         if (int(choice) <= len(purchasables.keys())): # They want to buy
             item = purchasables[choice]
-            sell_ = False
+            buy(user, game, item)
         elif (int(choice) > len(purchasables.keys())): # They want to sell
             item = soldables[choice]
-            sell_ = True
-    except KeyError:
+            sell(user, game, item)
+    except (KeyError, ValueError):
         farm(user, game)
-    except ValueError:
-        farm(user, game)
-    if (sell_):
-        if (item in animals):
-            sell(user, game, "Enclosures", item)
-        elif (item in buildings):
-            sell(user, game, '', item)
-    else:
-        buy(user, game, item)
 
 
-def sell(user: str, game: str, container: str, item: str) -> int:
+def sell(user: str, game: str, item: str) -> int:
     ...
 
 
@@ -170,6 +161,7 @@ def buy(user: str, game: str, item: str) -> int:
         dat = d.game(user, game)
         dat["Money"] -= total
         if (item in animals):
+            quantity_ = quantity
             for enclosure in dat["Enclosures"]:
                 left_ = enclosure["Capacity left"]
                 if (left_): # Space left for the new animal
@@ -182,9 +174,12 @@ def buy(user: str, game: str, item: str) -> int:
                 print(f"You have had your {quantity*price}$ back")
                 dat["Money"] += quantity*price
                 input("> ")
+            dat["Shop"]["Availability"]["Buildings"][item] -= (quantity_ - quantity)
         elif (item in buildings):
             dat["Money"] -= quantity*price
+            dat["Shop"]["Availability"]["Buildings"][item] -= quantity
             dat[f"{item}s"].append(o.new(item))
+        dat["Shop"]["Stats"]["Bought"][item] += quantity
         d.encode_game(user, game, dat)
     shop(user, game)
 
