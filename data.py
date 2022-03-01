@@ -42,6 +42,6 @@ def money(user: str, game: str) -> int:
 
 
 def prices() -> dict:
-    with open("shop.json", 'r') as accounts:
-        data: dict = json.load(accounts)
+    with open("shop.json", 'r') as prices_:
+        data: dict = json.load(prices_)
     return data

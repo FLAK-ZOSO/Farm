@@ -10,7 +10,7 @@ def main() -> str:
     print("\t1) Sign Up")
     print("\t2) Sign In\n")
     while (True):
-        choice = input('> ')
+        choice = input("> ")
         if (choice == '1'):
             user = sign_up()
             if (not user):
@@ -27,6 +27,7 @@ def main() -> str:
 
 
 def sign_up() -> str:
+    cls.main()
     with open("account.json", 'r') as accounts:
         data: dict = json.load(accounts)
     username = input("Username: ")
@@ -45,6 +46,7 @@ def sign_up() -> str:
 
 
 def sign_in() -> str:
+    cls.main()
     with open("account.json", 'r') as accounts:
         data: dict = json.load(accounts)
     username = input("Username: ")

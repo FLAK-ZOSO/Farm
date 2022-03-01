@@ -100,24 +100,71 @@ def shop(user: str, game: str) -> None:
     print(output)
     choice = input("> ")
     try:
-        if (int(choice) <= len(purchasables.keys())): # They want to buy
+        lenght = len(purchasables.keys())
+        if (int(choice) <= lenght): # They want to buy
             item = purchasables[choice]
             buy(user, game, item)
-        elif (int(choice) > len(purchasables.keys())): # They want to sell
-            item = soldables[choice]
+        elif (int(choice) > lenght): # They want to sell
+            item = soldables[str(int(choice)-lenght)]
             sell(user, game, item)
     except (KeyError, ValueError):
         farm(user, game)
 
 
 def sell(user: str, game: str, item: str) -> int:
-    ...
+    a.cls.main()
+    dat = d.game(user, game)
+    # Availability
+    if (item in animals):
+        items = [enclosure[f"{item}s"] for enclosure in dat["Enclosures"]]
+        availability = sum(items)
+        price = d.prices()["Soldables"]["Animals"][item]
+    elif (item in crops):
+        availability = dat["Silos"]["Content"][item]
+        price = d.prices()["Soldables"]["Crops"][item]
+    print(item.upper())
+    print(f"Availability: {availability}")
+    print(f"Price: {price}$\n")
+    while (True):
+        quantity = input("Quantity -> ")
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            continue
+        else:
+            break
+    quantity: int = min([quantity, availability])
+    total = price*quantity
+    print(f"\nQuantity: {quantity}\nTotal price: {total}")
+    print(f"\nConfirm? (y/n)")
+    if (input("> ").lower() == 'y'):
+        try:
+            dat["Shop"]["Stats"]["Sold"][item] += quantity
+        except KeyError:
+            dat["Shop"]["Stats"]["Sold"][item] = quantity
+        if (item in animals):
+            for enclosure in dat["Enclosures"]:
+                if (quantity): # Animals you need to sell them all
+                    if (enclosure[f"{item}s"] >= quantity):
+                        anim = enclosure[f"{item}s"]
+                        enclosure[f"{item}s"] -= quantity
+                        enclosure["Capacity left"] += (anim - quantity)
+                        quantity = 0
+                        break
+                    quantity -= enclosure[f"{item}s"]
+                    enclosure["Capacity left"] += enclosure[f"{item}s"]
+                    enclosure[f"{item}s"] = 0
+        elif (item in crops):
+            dat["Silos"]["Content"][item] -= quantity
+        dat["Money"] += total
+    d.encode_game(user, game, dat)
+    shop(user, game)
 
 
 def buy(user: str, game: str, item: str) -> int:
     a.cls.main()
     # Output
-    print(f"{item.upper()}")
+    print(item.upper())
     # Availability
     shop_ = d.shop(user, game)
     shop_: dict[str, dict] = shop_["Availability"]
@@ -178,7 +225,8 @@ def buy(user: str, game: str, item: str) -> int:
         elif (item in buildings):
             dat["Money"] -= quantity*price
             dat["Shop"]["Availability"]["Buildings"][item] -= quantity
-            dat[f"{item}s"].append(o.new(item))
+            for _ in range(quantity):
+                dat[f"{item}s"].append(o.new(item))
         dat["Shop"]["Stats"]["Bought"][item] += quantity
         d.encode_game(user, game, dat)
     shop(user, game)
