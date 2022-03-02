@@ -6,10 +6,6 @@ import sys
 import text as t
 
 
-# Import the Tkinter login validator v0.0.4 by FLAK-ZOSO
-sys.path.insert(0, "Login-validator-0.0.4") # This is still not used
-
-
 animals = {"Sheep", "Hen", "Cock"}
 buildings = {"Enclosure", "Field"}
 crops = {"Grain", "Carrot"}
