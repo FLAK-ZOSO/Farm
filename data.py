@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import json
-import text as t
 
 
 def encode_game(user: str, game: str, data: dict) -> None:
@@ -11,34 +10,42 @@ def encode_game(user: str, game: str, data: dict) -> None:
         json.dump(data_, accounts, indent=4)
 
 
-def games_list(user: str) -> list[str]:
+def encode_user(user: str, data: dict) -> None:
+    with open("account.json", 'r') as accounts:
+        data_: dict = json.load(accounts)
+    data_[user] = data
+    with open("account.json", 'w') as accounts:
+        json.dump(data_, accounts, indent=4)
+
+
+def user_(user: str) -> dict:
     with open("account.json", 'r') as accounts:
         data: dict = json.load(accounts)
-    return data[user]["Games"].keys()
+    return data[user]
+
+
+def games_list(user: str) -> list[str]:
+    return games(user).keys()
+
+
+def games(user: str) -> dict:
+    return user_(user)["Games"]
 
 
 def game(user: str, game: str) -> dict:
-    with open("account.json", 'r') as accounts:
-        data: dict = json.load(accounts)
-    return data[user]["Games"][game]
+    return games(user)[game]
 
 
 def silos(user: str, game: str) -> dict:
-    with open("account.json", 'r') as accounts:
-        data: dict = json.load(accounts)
-    return data[user]["Games"][game]["Silos"]
+    return game(user, game)["Silos"]
 
 
 def shop(user: str, game: str) -> dict:
-    with open("account.json", 'r') as accounts:
-        data: dict = json.load(accounts)
-    return data[user]["Games"][game]["Shop"]
+    return game(user, game)["Shop"]
 
 
 def money(user: str, game: str) -> int:
-    with open("account.json", 'r') as accounts:
-        data: dict = json.load(accounts)
-    return data[user]["Games"][game]["Money"]
+    return game(user, game)["Money"]
 
 
 def prices() -> dict:

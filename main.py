@@ -29,12 +29,29 @@ def games(user: str) -> None:
     for index, value in enumerate(g_l := d.games_list(user)):
         print(f"    {index+1}) {value}")
     dictionary = {str(index+1): value for index, value in enumerate(g_l)}
-    print(f"    {len(dictionary.keys())+1}) Back to menu\n")
+    print(f"    {len(dictionary)+1}) New Game")
+    print(f"    {len(dictionary)+2}) Back to menu\n")
     answer = input("> ")
     try:
         farm(user, dictionary[answer])
     except KeyError:
-        main(user)
+        if (answer == str(len(dictionary)+1)):
+            new_game(user)
+        else:
+            main(user)
+
+
+def new_game(user: str) -> None:
+    a.cls.main()
+    dat = d.user_(user)
+    print(t.new_game)
+    input("> ")
+    a.cls.main()
+    choice = input("Farm name: ")
+    while (choice.isspace() or not choice):
+        choice = input("Farm name: ")
+    dat["Games"][choice] = o.new_game
+    d.encode_user(user, dat)
 
 
 def farm(user: str, game: str) -> None:
