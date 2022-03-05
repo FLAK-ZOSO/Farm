@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import account as a
 import data as d
+from datetime import datetime
 import objects as o
 import sys
 import text as t
@@ -63,24 +64,56 @@ def farm(user: str, game: str) -> None:
     print("2) Enclosures")
     print("3) Fields")
     print("4) Shop")
-    print("5) Back to my games\n")
+    print("5) Refresh")
+    print("6) Back to my games\n")
     while True:
         answer = input('> ')
         if (answer == '1'):
             silos(user, game)
-            return
         elif (answer == '2'):
             enclosures(user, game)
-            return
         elif (answer == '3'):
             fields(user, game)
-            return
         elif (answer == '4'):
             shop(user, game)
-            return
         elif (answer == '5'):
+            refresh(user, game)
+        elif (answer == '6'):
             games(user)
-            return
+        else:
+            continue
+        break
+
+
+def refresh(user: str, game: str) -> None:
+    a.cls.main()
+    print("Refreshing all... [    ]", end='\r')
+    print("Checking delays... [-   ]", end='\r')
+    delays = d.times()
+    dat = d.game(user, game)
+    print("Refreshing enclosures... [--  ]", end='\r')
+    enclosures_: list[dict] = dat["Enclosures"]
+    for enclosure in enclosures_:
+        for product, products in enclosure["Content"].items():
+            for index, i in enumerate(products):
+                if (i == "[DONE]"):
+                    continue
+                delta = (datetime.now() - datetime.fromisoformat(i)).total_seconds()
+                if (delta >= delays[product]):
+                    products[index] = "[DONE]"
+    print("Refreshing fields... [--- ]          ", end='\r')
+    fields_: list[dict[str, list]] = dat["Fields"]
+    for field in fields_:
+        for product, products in field.items():
+            for index, i in enumerate (products):
+                if (i == "[DONE]"):
+                    continue
+                delta = (datetime.now() - datetime.fromisoformat(i)).total_seconds()
+                if (delta >= delays[product]):
+                    products[index] = "[DONE]"
+    print("Saving data... [----]      ", end='\r')
+    d.encode_game(user, game, dat)
+    farm(user, game)
 
 
 def silos(user: str, game: str) -> None:
@@ -98,6 +131,19 @@ def silos(user: str, game: str) -> None:
 
 
 def enclosures(user: str, game: str) -> None:
+    a.cls.main()
+    dat = d.game(user, game)
+    print(t.enclosures_string(dat["Enclosures"]))
+    choice = input("\n")
+    try:
+        dat[int(choice)]
+        enclosure(user, game, choice)
+    except KeyError:
+        farm(user, game)
+        return
+
+
+def enclosure(user: str, game: str, n: str) -> None:
     ...
 
 

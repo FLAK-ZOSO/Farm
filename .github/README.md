@@ -1,2 +1,2 @@
 # Farm
- Terminal farm simulator
+Terminal farm simulator

@@ -40,6 +40,10 @@ def silos(user: str, game: str) -> dict:
     return game(user, game)["Silos"]
 
 
+def enclosures(user: str, game: str) -> dict:
+    return game(user, game)["Enclosures"]
+
+
 def shop(user: str, game: str) -> dict:
     return game(user, game)["Shop"]
 
@@ -51,4 +55,10 @@ def money(user: str, game: str) -> int:
 def prices() -> dict:
     with open("shop.json", 'r') as prices_:
         data: dict = json.load(prices_)
+    return data
+
+
+def times() -> dict[str, int]:
+    with open("time.json", 'r') as times_:
+        data: dict[str, int] = json.load(times_)
     return data

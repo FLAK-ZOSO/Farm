@@ -56,6 +56,21 @@ new_game = """
 """
 
 
+enclosures = """
+    |||||||||||||||||||||||||||||||||||||||    |||||||||||||||||||||||||||||||||||||||
+    |||         |||         |||         |||    |||         |||         |||         |||
+    |||         |||         |||         |||    |||         |||         |||         |||
+    |||         |||         |||         |||    |||         |||         |||         |||
+    |||         |||         |||         |||    |||         |||         |||         |||
+    |||||||||||||||||||||||||||||||||||||||    |||||||||||||||||||||||||||||||||||||||
+    |||         |||         |||         |||    |||         |||         |||         |||
+    |||         |||         |||         |||    |||         |||         |||         |||
+    |||         |||         |||         |||    |||         |||         |||         |||
+    |||         |||         |||         |||    |||         |||         |||         |||
+    |||||||||||||||||||||||||||||||||||||||    |||||||||||||||||||||||||||||||||||||||
+"""
+
+
 line = "-- - - - - - - - - - --"
 
 
@@ -87,6 +102,21 @@ def silos_string(dat: dict) -> tuple[str, dict]:
     output += f"    {line}\n"
     output += f"    {len(dictionary.keys())+1}) Back to the farm\n"
     return output, dictionary
+
+
+def enclosures_string(dat: dict) -> str:
+    output = enclosures
+    for i in range(len(dat)):
+        if (i%10 == 1):
+            suffix = 'st'
+        elif (i%10 == 2):
+            suffix = 'nd'
+        else:
+            suffix = 'th'
+        output += f"    {i}) {i}{suffix} enclosure\n"
+    output += f"    {line}\n"
+    output += f"    {len(dat)+1}) Back to the farm\n"
+    return output
 
 
 def shop_string(dat: dict, prices: dict) -> tuple[str, dict, dict]:
