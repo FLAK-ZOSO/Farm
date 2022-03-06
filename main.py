@@ -132,9 +132,11 @@ def enclosures(user: str, game: str) -> None:
     print(t.enclosures_string(dat["Enclosures"]))
     choice = input("\n")
     try:
-        dat[int(choice)]
-        enclosure(user, game, choice)
+        dat["Enclosures"][int(choice)-1]
+        enclosure(user, game, int(choice)-1)
     except KeyError:
+        farm(user, game)
+    except ValueError:
         farm(user, game)
 
 
@@ -142,8 +144,25 @@ def fields(user: str, game: str) -> None:
     ...
 
 
-def enclosure(user: str, game: str, n: str) -> None:
-    ...
+def enclosure(user: str, game: str, n: int) -> None:
+    a.cls.main()
+    dat = d.game(user, game)
+    silo = d.silos(user, game)
+    my_enclosure: dict = dat["Enclosures"][n]
+    output = t.enclosure
+    symbols = d.symbols()
+    formatted = []
+    for key, value in my_enclosure.items():
+        if (key in symbols.keys()):
+            for i in range(value):
+                formatted.append(symbols[key])
+    for i in range(6):
+        try:
+            formatted[i]
+        except IndexError:
+            formatted.append(' ')
+    print(output.format(*formatted))
+    input("> ")
 
 
 def shop(user: str, game: str) -> None:

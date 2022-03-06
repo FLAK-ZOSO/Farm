@@ -36,20 +36,20 @@ def game(user: str, game: str) -> dict:
     return games(user)[game]
 
 
-def silos(user: str, game: str) -> dict:
-    return game(user, game)["Silos"]
+def silos(user: str, game_: str) -> dict:
+    return game(user, game_)["Silos"]
 
 
-def enclosures(user: str, game: str) -> dict:
-    return game(user, game)["Enclosures"]
+def enclosures(user: str, game_: str) -> dict:
+    return game(user, game_)["Enclosures"]
 
 
-def shop(user: str, game: str) -> dict:
-    return game(user, game)["Shop"]
+def shop(user: str, game_: str) -> dict:
+    return game(user, game_)["Shop"]
 
 
-def money(user: str, game: str) -> int:
-    return game(user, game)["Money"]
+def money(user: str, game_: str) -> int:
+    return game(user, game_)["Money"]
 
 
 def prices() -> dict:
@@ -61,4 +61,10 @@ def prices() -> dict:
 def times() -> dict[str, int]:
     with open("time.json", 'r') as times_:
         data: dict[str, int] = json.load(times_)
+    return data
+
+
+def symbols() -> dict[str, str]:
+    with open("symbols.json", 'r') as symbols_:
+        data: dict[str, int] = json.load(symbols_)
     return data

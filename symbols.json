@@ -1,0 +1,14 @@
+{
+    "Sheep": "#",
+    "Sheeps": "#",
+    "Hen": "%",
+    "Hens": "%",
+    "Cock": "à",
+    "Cocks": "à",
+    
+    "Egg": "O",
+    "Eggs": "O",
+    "Fertilized egg": "0",
+    "Fertilized eggs": "0",
+    "Wool": "&"
+}
