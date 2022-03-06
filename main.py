@@ -134,11 +134,10 @@ def enclosures(user: str, game: str) -> None:
     choice = input("\n")
     try:
         dat["Enclosures"][int(choice)-1]
-        enclosure(user, game, int(choice)-1)
-    except KeyError:
+    except (KeyError, ValueError):
         farm(user, game)
-    except ValueError:
-        farm(user, game)
+        return
+    enclosure(user, game, int(choice)-1)
 
 
 def fields(user: str, game: str) -> None:
@@ -172,6 +171,7 @@ def enclosure(user: str, game: str, n: int) -> None:
     except (KeyError, ValueError):
         enclosures(user, game)
         return
+    a.cls.main()
     print(animal.upper())
     print("1) Collect products")
     print("2) Sell animal")
@@ -186,7 +186,36 @@ def enclosure(user: str, game: str, n: int) -> None:
 
 
 def collect(user: str, game: str, n: int, animal: str) -> None:
-    ...
+    a.cls.main()
+    enclosure_: dict = d.enclosures(user, game)[n]
+    animal_product = d.animal_product()
+    product = animal_product[animal]
+    silo: dict[str, str | dict[str, int]] = d.silos(user, game)
+    content: dict[str, list[str]] = enclosure_["Content"]
+    plural = f"{product}s"
+    if (content[plural]): # The list of the products isn't empty
+        if ("[DONE]" in content[plural]):
+            if (silo["Capacity"] - sum(silo["Content"].values()) > 0):
+                content[plural].remove("[DONE]")
+                try:
+                    silo["Content"][plural] += 1
+                except KeyError:
+                    silo["Content"][plural] = 1 # Here there's something wrong
+            else:
+                print("No space in the silos")
+                input("> ")
+                silos(user, game)
+                return
+        else:
+            print("No product ready")
+    else:
+        print("No product avaiable")
+    dat = d.game(user, game)
+    dat["Silos"] = silo
+    dat["Enclosures"][n]["Content"] = content
+    d.encode_game(user, game, dat)
+    input("> ")
+    enclosure(user, game, n)
 
 
 def shop(user: str, game: str) -> None:

@@ -10,7 +10,8 @@
                     "Capacity": 150,
                     "Content": {
                         "Grain": 90,
-                        "Carrots": 20
+                        "Carrots": 20,
+                        "Eggs": 1
                     }
                 },
                 "Enclosures": [
@@ -22,10 +23,6 @@
                         "Cocks": 1,
                         "Content": {
                             "Eggs": [
-                                "[DONE]",
-                                "[DONE]"
-                            ],
-                            "Fertilized eggs": [
                                 "[DONE]"
                             ],
                             "Wool": [
@@ -96,7 +93,6 @@
                         "Cocks": 0,
                         "Content": {
                             "Eggs": [],
-                            "Fertilized eggs": [],
                             "Wool": []
                         }
                     }
