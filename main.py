@@ -66,23 +66,19 @@ def farm(user: str, game: str) -> None:
     print("4) Shop")
     print("5) Refresh")
     print("6) Back to my games\n")
+    answers = {
+        '1': silos, '2': enclosures, '3': fields, 
+        '4': shop, '5': refresh
+    }
     while True:
         answer = input('> ')
-        if (answer == '1'):
-            silos(user, game)
-        elif (answer == '2'):
-            enclosures(user, game)
-        elif (answer == '3'):
-            fields(user, game)
-        elif (answer == '4'):
-            shop(user, game)
-        elif (answer == '5'):
-            refresh(user, game)
-        elif (answer == '6'):
-            games(user)
+        try:
+            answers[answer](user, game)
+        except KeyError:
+            if (answer == '6'):
+                games(user)
         else:
-            continue
-        break
+            break
 
 
 def refresh(user: str, game: str) -> None:
@@ -140,14 +136,13 @@ def enclosures(user: str, game: str) -> None:
         enclosure(user, game, choice)
     except KeyError:
         farm(user, game)
-        return
-
-
-def enclosure(user: str, game: str, n: str) -> None:
-    ...
 
 
 def fields(user: str, game: str) -> None:
+    ...
+
+
+def enclosure(user: str, game: str, n: str) -> None:
     ...
 
 
