@@ -65,6 +65,6 @@ def times() -> dict[str, int]:
 
 
 def symbols() -> dict[str, str]:
-    with open("symbols.json", 'r') as symbols_:
+    with open("symbols.jsonc", 'r') as symbols_:
         data: dict[str, int] = json.load(symbols_)
     return data
