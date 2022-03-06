@@ -11,7 +11,7 @@
                     "Content": {
                         "Grain": 90,
                         "Carrots": 20,
-                        "Eggs": 1
+                        "Eggs": 3
                     }
                 },
                 "Enclosures": [
@@ -23,7 +23,7 @@
                         "Cocks": 1,
                         "Content": {
                             "Eggs": [
-                                "[DONE]"
+                                "2022-03-06T21:42:39.246724"
                             ],
                             "Wool": [
                                 "[DONE]"

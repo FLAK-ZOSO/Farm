@@ -173,19 +173,40 @@ def enclosure(user: str, game: str, n: int) -> None:
         return
     a.cls.main()
     print(animal.upper())
-    print("1) Collect products")
-    print("2) Sell animal")
+    print("1) Collect product")
+    print("2) Produce product")
+    print("3) Sell animal")
     choice = input("\n> ")
     if (choice == '1'):
-        collect(user, game, n, animal)
+        collect_animal(user, game, n, animal)
     elif (choice == '2'):
+        produce_animal(user, game, n, animal)
+    elif (choice == '3'):
         sell(user, game, animal)
     else:
         enclosures(user, game)
     input("> ")
 
 
-def collect(user: str, game: str, n: int, animal: str) -> None:
+def produce_animal(user: str, game: str, n: int, animal: str) -> None:
+    a.cls.main()
+    enclosure_: dict = d.enclosures(user, game)[n]
+    product = d.animal_product()[animal]
+    content: dict[str, list[str]] = enclosure_["Content"]
+    if (len(content[f"{product}s"]) >= enclosure_[f"{animal}s"]):
+        print(f"Your {animal} is already busy")
+        input("> ")
+        return
+    content[f"{product}s"].append(datetime.now().isoformat())
+    print(f"Your {animal} is producing {product}")
+    dat = d.game(user, game)
+    dat["Enclosures"][n]["Content"] = content
+    d.encode_game(user, game, dat)
+    input("> ")
+    enclosure(user, game, n)
+
+
+def collect_animal(user: str, game: str, n: int, animal: str) -> None:
     a.cls.main()
     enclosure_: dict = d.enclosures(user, game)[n]
     animal_product = d.animal_product()
@@ -202,14 +223,14 @@ def collect(user: str, game: str, n: int, animal: str) -> None:
                 except KeyError:
                     silo["Content"][plural] = 1 # Here there's something wrong
             else:
-                print("No space in the silos")
+                print(f"No space in the silos for your {product}")
                 input("> ")
                 silos(user, game)
                 return
         else:
-            print("No product ready")
+            print(f"No {product} is ready")
     else:
-        print("No product avaiable")
+        print(f"No {product} is being produced")
     dat = d.game(user, game)
     dat["Silos"] = silo
     dat["Enclosures"][n]["Content"] = content
