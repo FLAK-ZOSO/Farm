@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from typing import Any
 import account as a
 import data as d
 from datetime import datetime
@@ -147,14 +148,15 @@ def fields(user: str, game: str) -> None:
 def enclosure(user: str, game: str, n: int) -> None:
     a.cls.main()
     dat = d.game(user, game)
-    silo = d.silos(user, game)
-    my_enclosure: dict = dat["Enclosures"][n]
+    my_enclosure: dict[str, Any] = dat["Enclosures"][n]
     output = t.enclosure
     symbols = d.symbols()
+    items: list[str] = []
     formatted = []
     for key, value in my_enclosure.items():
         if (key in symbols.keys()):
             for i in range(value):
+                items.append(key.removesuffix('s'))
                 formatted.append(symbols[key])
     for i in range(6):
         try:
@@ -162,7 +164,29 @@ def enclosure(user: str, game: str, n: int) -> None:
         except IndexError:
             formatted.append(' ')
     print(output.format(*formatted))
+    for index, value in enumerate(items):
+        print(f"{index+1}) {value}")
+    choice = input("\n> ")
+    try:
+        animal: str = items[int(choice)-1]
+    except (KeyError, ValueError):
+        enclosures(user, game)
+        return
+    print(animal.upper())
+    print("1) Collect products")
+    print("2) Sell animal")
+    choice = input("\n> ")
+    if (choice == '1'):
+        collect(user, game, n, animal)
+    elif (choice == '2'):
+        sell(user, game, animal)
+    else:
+        enclosures(user, game)
     input("> ")
+
+
+def collect(user: str, game: str, n: int, animal: str) -> None:
+    ...
 
 
 def shop(user: str, game: str) -> None:

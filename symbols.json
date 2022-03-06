@@ -3,7 +3,7 @@
     "Sheeps": "#",
     "Hen": "%",
     "Hens": "%",
-    "Cock": "C", // C stands for Cock, only 128 characters are permitted without strange encoding standards, and I couldn't find anything better
+    "Cock": "C",
     "Cocks": "C",
     
     "Egg": "O",
