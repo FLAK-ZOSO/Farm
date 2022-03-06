@@ -40,7 +40,7 @@ def silos(user: str, game_: str) -> dict:
     return game(user, game_)["Silos"]
 
 
-def enclosures(user: str, game_: str) -> dict:
+def enclosures(user: str, game_: str) -> list[dict]:
     return game(user, game_)["Enclosures"]
 
 
@@ -66,5 +66,11 @@ def times() -> dict[str, int]:
 
 def symbols() -> dict[str, str]:
     with open("symbols.json", 'r') as symbols_:
-        data: dict[str, int] = json.load(symbols_)
+        data: dict[str, str] = json.load(symbols_)
+    return data
+
+
+def animal_product() -> dict[str, str]:
+    with open("animal-product.json", 'r') as products_:
+        data: dict[str, str] = json.load(products_)
     return data
