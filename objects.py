@@ -69,10 +69,10 @@ new_game = {
 def new(item: str) -> (dict | list):
     if (item.lower() in ["enclosure", "enclosures"]):
         return {
-            "Capacity": 0, "Capacity left": 6, 
+            "Capacity": 6, "Capacity left": 6, 
             "Sheeps": 0, "Hens": 0, "Cocks": 0, 
             "Content": {
-                "Eggs": [], "Fertilized eggs": [],"Wool": []
+                "Eggs": [], "Wool": []
             }
         }
     if (item.lower() in ["field", "fields"]):

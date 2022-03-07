@@ -131,7 +131,7 @@ def enclosures(user: str, game: str) -> None:
     a.cls.main()
     dat = d.game(user, game)
     print(t.enclosures_string(dat["Enclosures"]))
-    choice = input("\n")
+    choice = input("\n> ")
     try:
         dat["Enclosures"][int(choice)-1]
     except (KeyError, ValueError):
@@ -215,13 +215,13 @@ def collect_animal(user: str, game: str, n: int, animal: str) -> None:
     content: dict[str, list[str]] = enclosure_["Content"]
     plural = f"{product}s"
     if (content[plural]): # The list of the products isn't empty
-        if ("[DONE]" in content[plural]):
+        if ("[DONE]" in content[plural]): # The error for sheeps comes from here
             if (silo["Capacity"] - sum(silo["Content"].values()) > 0):
                 content[plural].remove("[DONE]")
                 try:
                     silo["Content"][plural] += 1
                 except KeyError:
-                    silo["Content"][plural] = 1 # Here there's something wrong
+                    silo["Content"][plural] = 1
             else:
                 print(f"No space in the silos for your {product}")
                 input("> ")
@@ -359,16 +359,21 @@ def buy(user: str, game: str, item: str) -> int:
             for enclosure in dat["Enclosures"]:
                 left_ = enclosure["Capacity left"]
                 if (left_): # Space left for the new animal
-                    left = left_ - quantity
-                    quantity -= left_
-                    enclosure[item] += left_
-                    enclosure["Capacity left"] = left
-            if (quantity): # Still animals without space
+                    if (quantity > left_): # Not enough space in this enclosure
+                        quantity -= left_
+                        enclosure[f"{item}s"] += left_
+                        enclosure["Capacity left"] = 0
+                    else:
+                        enclosure[f"{item}s"] += quantity
+                        enclosure["Capacity left"] -= quantity
+                        quantity = 0
+                        break
+            if (quantity > 0): # Still animals without space
                 print(f"There are still {quantity} {item}s without space")
                 print(f"You have had your {quantity*price}$ back")
                 dat["Money"] += quantity*price
                 input("> ")
-            dat["Shop"]["Availability"]["Buildings"][item] -= (quantity_ - quantity)
+            dat["Shop"]["Availability"]["Animals"][item] -= (quantity_ - quantity)
         elif (item in buildings):
             dat["Money"] -= quantity*price
             dat["Shop"]["Availability"]["Buildings"][item] -= quantity
@@ -376,6 +381,7 @@ def buy(user: str, game: str, item: str) -> int:
                 dat[f"{item}s"].append(o.new(item))
         dat["Shop"]["Stats"]["Bought"][item] += quantity
         d.encode_game(user, game, dat)
+        input("> ")
     shop(user, game)
 
 

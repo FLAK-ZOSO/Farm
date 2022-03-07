@@ -11,7 +11,7 @@
                     "Content": {
                         "Grain": 90,
                         "Carrots": 20,
-                        "Eggs": 3
+                        "Eggs": 4
                     }
                 },
                 "Enclosures": [
@@ -23,7 +23,7 @@
                         "Cocks": 1,
                         "Content": {
                             "Eggs": [
-                                "2022-03-06T21:42:39.246724"
+                                "2022-03-06T22:18:58.870465"
                             ],
                             "Wool": [
                                 "[DONE]"
@@ -69,68 +69,6 @@
                         "Buildings": {
                             "Field": 0,
                             "Enclosure": 0
-                        }
-                    }
-                }
-            },
-            "My Second Farm": {
-                "Money": 10000,
-                "Experience": 0,
-                "Level": 0,
-                "Silos": {
-                    "Capacity": 150,
-                    "Content": {
-                        "Grain": 10,
-                        "Carrots": 0
-                    }
-                },
-                "Enclosures": [
-                    {
-                        "Capacity": 6,
-                        "Capacity left": 6,
-                        "Sheeps": 0,
-                        "Hens": 0,
-                        "Cocks": 0,
-                        "Content": {
-                            "Eggs": [],
-                            "Wool": []
-                        }
-                    }
-                ],
-                "Fields": [
-                    {
-                        "Grain": [],
-                        "Carrots": []
-                    },
-                    {
-                        "Grain": [],
-                        "Carrots": []
-                    }
-                ],
-                "Shop": {
-                    "Stats": {
-                        "Sold": {
-                            "Grain": 0,
-                            "Carrots": 0,
-                            "Sheep": 0
-                        },
-                        "Bought": {
-                            "Sheep": 0,
-                            "Hen": 0,
-                            "Cock": 0,
-                            "Field": 0,
-                            "Enclosure": 0
-                        }
-                    },
-                    "Availability": {
-                        "Animals": {
-                            "Sheep": 2,
-                            "Hen": 2,
-                            "Cock": 2
-                        },
-                        "Buildings": {
-                            "Field": 1,
-                            "Enclosure": 1
                         }
                     }
                 }
