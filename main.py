@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from typing import Any
 import account as a
 import data as d
 from datetime import datetime
@@ -11,6 +10,7 @@ import text as t
 animals = {"Sheep", "Hen"}
 buildings = {"Enclosure", "Field"}
 crops = {"Grain", "Carrot"}
+animal_products = {"Egg", "Eggs", "Wool"}
 
 
 def main(user: str) -> None:
@@ -229,7 +229,6 @@ def produce_animal(user: str, game: str, n: int, animal: str) -> None:
     dat["Enclosures"][n]["Content"] = content
     d.encode_game(user, game, dat)
     input("> ")
-    enclosure(user, game, n)
 
 
 def collect_animal(user: str, game: str, n: int, animal: str) -> None:
@@ -262,7 +261,6 @@ def collect_animal(user: str, game: str, n: int, animal: str) -> None:
     dat["Enclosures"][n]["Content"] = content
     d.encode_game(user, game, dat)
     input("> ")
-    enclosure(user, game, n)
 
 
 def shop(user: str, game: str) -> None:
@@ -295,6 +293,10 @@ def sell(user: str, game: str, item: str) -> int:
     elif (item in crops):
         availability = dat["Silos"]["Content"][item]
         price = d.prices()["Soldables"]["Crops"][item]
+    elif (item in animal_products):
+        plural = f"{item}s" if (item.lower() in ("egg",)) else item
+        availability = dat["Silos"]["Content"][plural]
+        price = d.prices()["Soldables"]["Animal products"][plural]
     print(item.upper())
     print(f"Availability: {availability}")
     print(f"Price: {price}$\n")
@@ -304,8 +306,7 @@ def sell(user: str, game: str, item: str) -> int:
             quantity = int(quantity)
         except ValueError:
             continue
-        else:
-            break
+        break
     quantity: int = min([quantity, availability])
     total = price*quantity
     print(f"\nQuantity: {quantity}\nTotal price: {total}")
@@ -327,7 +328,7 @@ def sell(user: str, game: str, item: str) -> int:
                     quantity -= enclosure[f"{item}s"]
                     enclosure["Capacity left"] += enclosure[f"{item}s"]
                     enclosure[f"{item}s"] = 0
-        elif (item in crops):
+        elif (item in crops or item in animal_products):
             dat["Silos"]["Content"][item] -= quantity
         dat["Money"] += total
     d.encode_game(user, game, dat)

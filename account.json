@@ -68,7 +68,7 @@
                 }
             },
             "The Second Farm That I'll Soon Delete": {
-                "Money": -99992300,
+                "Money": 80360,
                 "Experience": 0,
                 "Level": 0,
                 "Silos": {
@@ -76,8 +76,8 @@
                     "Content": {
                         "Grain": 10,
                         "Carrots": 0,
-                        "Wool": 1,
-                        "Eggs": 2
+                        "Wool": 0,
+                        "Eggs": 0
                     }
                 },
                 "Enclosures": [
@@ -89,9 +89,19 @@
                         "Content": {
                             "Eggs": [],
                             "Wool": [
-                                "2022-03-08T17:00:46.975148",
-                                "2022-03-08T17:14:06.453434"
+                                "2022-03-08T18:50:11.876284",
+                                "2022-03-08T18:50:22.627794"
                             ]
+                        }
+                    },
+                    {
+                        "Capacity": 6,
+                        "Capacity left": 6,
+                        "Sheeps": 0,
+                        "Hens": 0,
+                        "Content": {
+                            "Eggs": [],
+                            "Wool": []
                         }
                     }
                 ],
@@ -111,13 +121,15 @@
                             "Grain": 0,
                             "Carrots": 0,
                             "Sheep": 0,
-                            "Hen": 1
+                            "Hen": 1,
+                            "Wool": 3,
+                            "Eggs": 3
                         },
                         "Bought": {
                             "Sheep": 0,
                             "Hen": 0,
                             "Field": 0,
-                            "Enclosure": 0
+                            "Enclosure": 1
                         }
                     },
                     "Availability": {
@@ -127,7 +139,7 @@
                         },
                         "Buildings": {
                             "Field": 1,
-                            "Enclosure": 1
+                            "Enclosure": 0
                         }
                     }
                 }

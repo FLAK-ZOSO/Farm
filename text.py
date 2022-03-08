@@ -137,7 +137,7 @@ def shop_string(dat: dict, prices: dict) -> tuple[str, dict, dict]:
     purchasables = prices["Purchasables"]
     purchasables: dict = purchasables["Animals"] | purchasables["Buildings"]
     soldables: dict = prices["Soldables"]
-    soldables: dict = soldables["Animals"] | soldables["Crops"]
+    soldables: dict = soldables["Animals"] | soldables["Crops"] | soldables["Animal products"]
     dictionary_p = {str(index+1): value for index, value in enumerate(purchasables.keys())}
     for index, key in dictionary_p.items():
         output += f"    {index}) {key} [{purchasables[key]}$]\n"

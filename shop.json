@@ -2,8 +2,7 @@
     "Purchasables": {
         "Animals": {
             "Sheep": 1000,
-            "Hen": 300,
-            "Cock": 200
+            "Hen": 300
         },
         "Buildings": {
             "Field": 5000,
@@ -13,12 +12,15 @@
     "Soldables": {
         "Animals": {
             "Sheep": 1000,
-            "Hen": 300,
-            "Cock": 200
+            "Hen": 300
         },
         "Crops": {
             "Grain": 2,
             "Carrot": 10
+        },
+        "Animal products": {
+            "Eggs": 20,
+            "Wool": 100
         }
     }
 }
