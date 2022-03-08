@@ -18,10 +18,8 @@ new_game = {
             "Capacity left": 6,
             "Sheeps": 0,
             "Hens": 0,
-            "Cocks": 0,
             "Content": {
                 "Eggs": [],
-                "Fertilized eggs": [],
                 "Wool": []
             }
         }
@@ -46,7 +44,6 @@ new_game = {
             "Bought": {
                 "Sheep": 0,
                 "Hen": 0,
-                "Cock": 0,
                 "Field": 0,
                 "Enclosure": 0
             }
@@ -54,8 +51,7 @@ new_game = {
         "Availability": {
             "Animals": {
                 "Sheep": 2,
-                "Hen": 2,
-                "Cock": 2
+                "Hen": 2
             },
             "Buildings": {
                 "Field": 1,
@@ -70,7 +66,7 @@ def new(item: str) -> (dict | list):
     if (item.lower() in ["enclosure", "enclosures"]):
         return {
             "Capacity": 6, "Capacity left": 6, 
-            "Sheeps": 0, "Hens": 0, "Cocks": 0, 
+            "Sheeps": 0, "Hens": 0,
             "Content": {
                 "Eggs": [], "Wool": []
             }

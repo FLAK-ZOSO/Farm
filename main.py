@@ -8,7 +8,7 @@ import sys
 import text as t
 
 
-animals = {"Sheep", "Hen", "Cock"}
+animals = {"Sheep", "Hen"}
 buildings = {"Enclosure", "Field"}
 crops = {"Grain", "Carrot"}
 
@@ -78,8 +78,8 @@ def farm(user: str, game: str) -> None:
         except KeyError:
             if (answer == '6'):
                 games(user)
-        else:
-            break
+            continue
+        break
 
 
 def refresh(user: str, game: str) -> None:
@@ -147,7 +147,7 @@ def fields(user: str, game: str) -> None:
 def enclosure(user: str, game: str, n: int) -> None:
     a.cls.main()
     dat = d.game(user, game)
-    my_enclosure: dict[str, Any] = dat["Enclosures"][n]
+    my_enclosure: dict[str, int | dict[str, list[str]]] = dat["Enclosures"][n]
     output = t.enclosure
     symbols = d.symbols()
     items: list[str] = []
@@ -165,10 +165,35 @@ def enclosure(user: str, game: str, n: int) -> None:
     print(output.format(*formatted))
     for index, value in enumerate(items):
         print(f"{index+1}) {value}")
+    print(f"\n{len(items)+1}) See content")
     choice = input("\n> ")
     try:
         animal: str = items[int(choice)-1]
-    except (KeyError, ValueError):
+    except (KeyError, ValueError, IndexError):
+        if (choice == str(len(items)+1)):
+            a.cls.main()
+            print(output.format(*formatted))
+            times = d.times()
+            for key, value in my_enclosure["Content"].items():
+                print(key.upper())
+                if (not len(value)):
+                    print("...\n")
+                    continue
+                for value_ in value:
+                    if (value_ == "[DONE]"):
+                        print(f"-> {symbols[key]}")
+                    else:
+                        delta = (datetime.now() - datetime.fromisoformat(value_)).total_seconds()
+                        print(f"-> {times[key] - int(delta)}s")
+            print(f"\n1) Collect first\n2) Refresh\n3) Back to enclosure")
+            choice = input("\n> ")
+            if (choice == '1'):
+                for animal in animals:
+                    collect_animal(user, game, n, animal)
+            elif (choice == '2'):
+                refresh(user, game)
+            elif (choice == '3'):
+                enclosure(user, game, n)
         enclosures(user, game)
         return
     a.cls.main()
@@ -193,11 +218,12 @@ def produce_animal(user: str, game: str, n: int, animal: str) -> None:
     enclosure_: dict = d.enclosures(user, game)[n]
     product = d.animal_product()[animal]
     content: dict[str, list[str]] = enclosure_["Content"]
-    if (len(content[f"{product}s"]) >= enclosure_[f"{animal}s"]):
+    plural = f"{product}s" if (product.lower() in ["egg"]) else product
+    if (len(content[plural]) >= enclosure_[f"{animal}s"]):
         print(f"Your {animal} is already busy")
         input("> ")
         return
-    content[f"{product}s"].append(datetime.now().isoformat())
+    content[plural].append(datetime.now().isoformat())
     print(f"Your {animal} is producing {product}")
     dat = d.game(user, game)
     dat["Enclosures"][n]["Content"] = content
@@ -213,9 +239,9 @@ def collect_animal(user: str, game: str, n: int, animal: str) -> None:
     product = animal_product[animal]
     silo: dict[str, str | dict[str, int]] = d.silos(user, game)
     content: dict[str, list[str]] = enclosure_["Content"]
-    plural = f"{product}s"
+    plural = f"{product}s" if (product.lower() in ["egg"]) else product
     if (content[plural]): # The list of the products isn't empty
-        if ("[DONE]" in content[plural]): # The error for sheeps comes from here
+        if ("[DONE]" in content[plural]): # The error for sheeps came from here, since we don't have "Wools"
             if (silo["Capacity"] - sum(silo["Content"].values()) > 0):
                 content[plural].remove("[DONE]")
                 try:
