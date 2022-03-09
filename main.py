@@ -181,7 +181,7 @@ def enclosure(user: str, game: str, n: int) -> None:
                     else:
                         delta = (datetime.now() - datetime.fromisoformat(value_)).total_seconds()
                         print(f"-> {times[key] - int(delta)}s")
-            print(f"\n1) Collect first\n2) Refresh\n3) Back to enclosure")
+            print(f"\n1) Collect all\n2) Refresh\n3) Back to enclosure")
             choice = input("\n> ")
             if (choice == '1'):
                 for animal in animals:
@@ -204,8 +204,6 @@ def enclosure(user: str, game: str, n: int) -> None:
         produce_animal(user, game, n, animal)
     elif (choice == '3'):
         sell(user, game, animal)
-    else:
-        enclosures(user, game)
     input("> ")
 
 
@@ -246,7 +244,53 @@ def field(user: str, game: str, n: int) -> None:
     for index, value in enumerate(items):
         print(f"{index+1}) {value}")
     print(f"\n{len(items)+1}) See content")
+    answer = input("> ")
+    try:
+        crop = items[int(answer)]
+        a.cls.main()
+        print(crop.upper())
+        print("1) Collect product")
+        print("2) Produce product")
+        print("3) Sell crop")
+        choice = input("\n> ")
+        if (choice == '1'):
+            collect_crop(user, game, n, crop)
+        elif (choice == '2'):
+            produce_crop(user, game, n, crop)
+        elif (choice == '3'):
+            sell(user, game, crop)
+    except (KeyError, IndexError):
+        if (answer == str(len(items)+1)):
+            times = d.times()
+            for key, value in my_field.items():
+                print(key.upper())
+                if (not len(value)):
+                    print("...\n")
+                    continue
+                for value_ in value:
+                    if (value_ == "[DONE]"):
+                        print(f"-> {symbols[key]}")
+                    else:
+                        delta = (datetime.now() - datetime.fromisoformat(value_)).total_seconds()
+                        print(f"-> {times[key] - int(delta)}s")
+            print(f"\n1) Collect all\n2) Refresh\n3) Back to fields")
+            choice = input("\n> ")
+            if (choice == '1'):
+                for crop in crops:
+                    collect_crop(user, game, n, crop)
+            elif (choice == '2'):
+                refresh(user, game)
+            elif (choice == '3'):
+                fields(user, game)
     input("\n> ")
+
+
+def collect_crop(user: str, game: str, n: int, crop: str) -> None:
+    ...
+
+
+def produce_crop(user: str, game: str, n: int, crop: str) -> None:
+    ...
 
 
 def produce_animal(user: str, game: str, n: int, animal: str) -> None:
