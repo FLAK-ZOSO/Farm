@@ -140,10 +140,6 @@ def enclosures(user: str, game: str) -> None:
     enclosure(user, game, int(choice)-1)
 
 
-def fields(user: str, game: str) -> None:
-    ...
-
-
 def enclosure(user: str, game: str, n: int) -> None:
     a.cls.main()
     dat = d.game(user, game)
@@ -211,6 +207,46 @@ def enclosure(user: str, game: str, n: int) -> None:
     else:
         enclosures(user, game)
     input("> ")
+
+
+def fields(user: str, game: str) -> None:
+    a.cls.main()
+    dat = d.game(user, game)
+    print(t.fields_string(dat["Fields"]))
+    choice = input("\n> ")
+    try:
+        dat["Fields"][int(choice)-1]
+    except (KeyError, IndexError, ValueError):
+        farm(user, game)
+        return
+    field(user, game, int(choice)-1)
+
+
+
+def field(user: str, game: str, n: int) -> None:
+    a.cls.main()
+    dat = d.game(user, game)
+    # The capacity of a field is set by default to 4 and can't be incremented
+    my_field: dict[str, list[str]] = dat["Fields"][n]
+    output = t.field
+    symbols = d.symbols()
+    items: list[str] = []
+    formatted = []
+    for key, value in my_field.items():
+        if (key in symbols.keys()):
+            for i in range(value):
+                items.append(key.removesuffix('s'))
+                formatted.append(symbols[key])
+    for i in range(4):
+        try:
+            formatted[i]
+        except IndexError:
+            formatted.append(' ')
+    print(output.format(*formatted))
+    for index, value in enumerate(items):
+        print(f"{index+1}) {value}")
+    print(f"\n{len(items)+1}) See content")
+    input("\n> ")
 
 
 def produce_animal(user: str, game: str, n: int, animal: str) -> None:
