@@ -3,7 +3,7 @@
         "Password": "drowssaPyM",
         "Games": {
             "My First Game": {
-                "Money": 91020,
+                "Money": 91340,
                 "Experience": 10000,
                 "Level": 10,
                 "Silos": {
@@ -11,8 +11,8 @@
                     "Content": {
                         "Grain": 90,
                         "Carrots": 20,
-                        "Eggs": 5,
-                        "Wool": 1
+                        "Eggs": 2,
+                        "Wool": 0
                     }
                 },
                 "Enclosures": [
@@ -22,8 +22,14 @@
                         "Sheeps": 1,
                         "Hens": 3,
                         "Content": {
-                            "Eggs": [],
-                            "Wool": []
+                            "Eggs": [
+                                "2022-03-10T16:20:49.672087",
+                                "2022-03-10T16:20:58.720344",
+                                "2022-03-10T16:21:04.253445"
+                            ],
+                            "Wool": [
+                                "2022-03-10T16:20:41.523381"
+                            ]
                         }
                     }
                 ],
@@ -33,7 +39,8 @@
                             "[DONE]"
                         ],
                         "Carrots": [
-                            "[DONE]"
+                            "[DONE]",
+                            "2022-03-10T22:04:35.896320"
                         ]
                     },
                     {
@@ -46,7 +53,9 @@
                         "Sold": {
                             "Grain": 40,
                             "Carrots": 0,
-                            "Sheep": 1
+                            "Sheep": 1,
+                            "Eggs": 6,
+                            "Wool": 2
                         },
                         "Bought": {
                             "Sheep": 2,
@@ -76,7 +85,7 @@
                     "Content": {
                         "Grain": 10,
                         "Carrots": 0,
-                        "Wool": 0,
+                        "Wool": 3,
                         "Eggs": 0
                     }
                 },
@@ -88,10 +97,7 @@
                         "Hens": 1,
                         "Content": {
                             "Eggs": [],
-                            "Wool": [
-                                "[DONE]",
-                                "[DONE]"
-                            ]
+                            "Wool": []
                         }
                     },
                     {
@@ -107,8 +113,12 @@
                 ],
                 "Fields": [
                     {
-                        "Grain": [],
-                        "Carrots": []
+                        "Grain": [
+                            "[DONE]"
+                        ],
+                        "Carrots": [
+                            "[DONE]"
+                        ]
                     },
                     {
                         "Grain": [],

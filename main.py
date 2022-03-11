@@ -177,7 +177,7 @@ def enclosure(user: str, game: str, n: int) -> None:
                     continue
                 for value_ in value:
                     if (value_ == "[DONE]"):
-                        print(f"-> {symbols[key]}")
+                        print(f"-> {symbols[key]}") # Error raised here while debugging
                     else:
                         delta = (datetime.now() - datetime.fromisoformat(value_)).total_seconds()
                         print(f"-> {times[key] - int(delta)}s")
@@ -232,7 +232,7 @@ def field(user: str, game: str, n: int) -> None:
     formatted = []
     for key, value in my_field.items():
         if (key in symbols.keys()):
-            for i in range(value):
+            for i in range(len(value)):
                 items.append(key.removesuffix('s'))
                 formatted.append(symbols[key])
     for i in range(4):
@@ -241,12 +241,14 @@ def field(user: str, game: str, n: int) -> None:
         except IndexError:
             formatted.append(' ')
     print(output.format(*formatted))
-    for index, value in enumerate(items):
+    global crops
+    crops_ = list(crops)
+    for index, value in enumerate(crops_):
         print(f"{index+1}) {value}")
-    print(f"\n{len(items)+1}) See content")
+    print(f"\n{len(crops_)+1}) See content")
     answer = input("> ")
     try:
-        crop = items[int(answer)]
+        crop = crops_[int(answer)-1]
         a.cls.main()
         print(crop.upper())
         print("1) Collect product")
@@ -260,7 +262,8 @@ def field(user: str, game: str, n: int) -> None:
         elif (choice == '3'):
             sell(user, game, crop)
     except (KeyError, IndexError):
-        if (answer == str(len(items)+1)):
+        if (answer == str(len(crops_)+1)):
+            a.cls.main()
             times = d.times()
             for key, value in my_field.items():
                 print(key.upper())
@@ -282,6 +285,8 @@ def field(user: str, game: str, n: int) -> None:
                 refresh(user, game)
             elif (choice == '3'):
                 fields(user, game)
+    except ValueError:
+        return
     input("\n> ")
 
 
@@ -290,7 +295,19 @@ def collect_crop(user: str, game: str, n: int, crop: str) -> None:
 
 
 def produce_crop(user: str, game: str, n: int, crop: str) -> None:
-    ...
+    a.cls.main()
+    field_: dict[str, list] = d.fields(user, game)[n]
+    plural = f"{crop}s" if (crop.lower() in ["carrot"]) else crop
+    if (sum([len(value) for value in field_.values()]) >= 4):
+        print(f"Your field is already busy")
+        input("> ")
+        return
+    field_[plural].append(datetime.now().isoformat())
+    print(f"Your {crop} is growing")
+    dat = d.game(user, game)
+    dat["Fields"][n] = field_
+    d.encode_game(user, game, dat)
+    input("> ")
 
 
 def produce_animal(user: str, game: str, n: int, animal: str) -> None:

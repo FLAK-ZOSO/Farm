@@ -44,6 +44,10 @@ def enclosures(user: str, game_: str) -> list[dict]:
     return game(user, game_)["Enclosures"]
 
 
+def fields(user: str, game_: str) -> list[dict]:
+    return game(user, game_)["Fields"]
+
+
 def shop(user: str, game_: str) -> dict:
     return game(user, game_)["Shop"]
 
