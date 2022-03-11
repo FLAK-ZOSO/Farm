@@ -291,7 +291,33 @@ def field(user: str, game: str, n: int) -> None:
 
 
 def collect_crop(user: str, game: str, n: int, crop: str) -> None:
-    ...
+    a.cls.main()
+    field_: dict[str, list[str]] = d.fields(user, game)[n]
+    product = crop
+    silo: dict[str, str | dict[str, int]] = d.silos(user, game)
+    plural = f"{product}s" if (product.lower() in ["carrot"]) else product
+    if (field_[plural]): # The list of the products isn't empty
+        if ("[DONE]" in field_[plural]):
+            if (silo["Capacity"] - sum(silo["Content"].values()) > 0):
+                field_[plural].remove("[DONE]")
+                try:
+                    silo["Content"][plural] += 1
+                except KeyError:
+                    silo["Content"][plural] = 1
+            else:
+                print(f"No space in the silos for your {product}")
+                input("> ")
+                silos(user, game)
+                return
+        else:
+            print(f"No {product} is ready")
+    else:
+        print(f"No {product} is growing")
+    dat = d.game(user, game)
+    dat["Silos"] = silo
+    dat["Fields"][n] = field_
+    d.encode_game(user, game, dat)
+    input("> ")
 
 
 def produce_crop(user: str, game: str, n: int, crop: str) -> None:
@@ -303,8 +329,13 @@ def produce_crop(user: str, game: str, n: int, crop: str) -> None:
         input("> ")
         return
     field_[plural].append(datetime.now().isoformat())
-    print(f"Your {crop} is growing")
     dat = d.game(user, game)
+    if (dat["Silos"]["Content"][plural] < 1):
+        print(f"No {crop} was found in the silos")
+        input("> ")
+        return
+    dat["Silos"]["Content"][plural] -= 1
+    print(f"Your {crop} is growing")
     dat["Fields"][n] = field_
     d.encode_game(user, game, dat)
     input("> ")

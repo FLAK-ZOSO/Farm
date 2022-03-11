@@ -77,14 +77,14 @@
                 }
             },
             "The Second Farm That I'll Soon Delete": {
-                "Money": 80360,
+                "Money": 80382,
                 "Experience": 0,
                 "Level": 0,
                 "Silos": {
                     "Capacity": 150,
                     "Content": {
-                        "Grain": 10,
-                        "Carrots": 0,
+                        "Grain": 1,
+                        "Carrots": 3,
                         "Wool": 3,
                         "Eggs": 0
                     }
@@ -113,9 +113,7 @@
                 ],
                 "Fields": [
                     {
-                        "Grain": [
-                            "[DONE]"
-                        ],
+                        "Grain": [],
                         "Carrots": [
                             "[DONE]"
                         ]
@@ -128,7 +126,7 @@
                 "Shop": {
                     "Stats": {
                         "Sold": {
-                            "Grain": 0,
+                            "Grain": 11,
                             "Carrots": 0,
                             "Sheep": 0,
                             "Hen": 1,
