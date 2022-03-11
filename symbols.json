@@ -3,12 +3,12 @@
     "Sheeps": "#",
     "Hen": "%",
     "Hens": "%",
-    "Cock": "C",
-    "Cocks": "C",
-    
+
     "Egg": "O",
     "Eggs": "O",
-    "Fertilized egg": "0",
-    "Fertilized eggs": "0",
-    "Wool": "&"
+    "Wool": "&",
+
+    "Carrot": "!",
+    "Carrots": "!",
+    "Grain": ";"
 }
