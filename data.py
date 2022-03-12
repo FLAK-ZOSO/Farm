@@ -78,3 +78,9 @@ def animal_product() -> dict[str, str]:
     with open("animal-product.json", 'r') as products_:
         data: dict[str, str] = json.load(products_)
     return data
+
+
+def points_level() -> list[list[int]]:
+    with open("points-level.json", 'r') as level_:
+        data: list[list[int, int]] = json.load(level_)
+    return data

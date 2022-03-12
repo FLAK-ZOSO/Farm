@@ -1,9 +1,11 @@
 #!/usr/bin/python3
+from datetime import datetime
 
 
 new_game = {
     "Money": 10000,
     "Experience": 0,
+    "Foundation": datetime.now().isoformat(),
     "Level": 0,
     "Silos": {
         "Capacity": 150,

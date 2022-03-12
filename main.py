@@ -85,9 +85,18 @@ def farm(user: str, game: str) -> None:
 def refresh(user: str, game: str) -> None:
     a.cls.main()
     print("Refreshing all... [    ]", end='\r')
+    dat = d.game(user, game)
+    delta = (datetime.now() - datetime.fromisoformat(dat["Foundation"])).total_seconds()
+    previous_level = dat["Level"]
+    for index, value in enumerate(d.points_level()):
+        if (delta >= value[0] and delta < value[1]):
+            dat["Level"] = index+1
+            break
+    if (dat["Level"] != previous_level):
+        d.encode_game(user, game, new_level(user, game, previous_level, dat["Level"]))
+    dat = d.game(user, game)
     print("Checking delays... [-   ]", end='\r')
     delays = d.times()
-    dat = d.game(user, game)
     print("Refreshing enclosures... [--  ]", end='\r')
     enclosures_: list[dict] = dat["Enclosures"]
     for enclosure in enclosures_:
@@ -111,6 +120,16 @@ def refresh(user: str, game: str) -> None:
     print("Saving data... [----]      ", end='\r')
     d.encode_game(user, game, dat)
     farm(user, game)
+
+
+def new_level(user: str, game: str, old: int, new: int) -> dict:
+    dat = d.game(user, game)
+    delta = new - old
+    for k in dat["Shop"]["Availability"]["Animals"].keys():
+        dat["Shop"]["Availability"]["Animals"][k] += delta
+    for k in dat["Shop"]["Availability"]["Buildings"].keys():
+        dat["Shop"]["Availability"]["Buildings"][k] += delta
+    return dat
 
 
 def silos(user: str, game: str) -> None:
@@ -301,9 +320,9 @@ def collect_crop(user: str, game: str, n: int, crop: str) -> None:
             if (silo["Capacity"] - sum(silo["Content"].values()) > 0):
                 field_[plural].remove("[DONE]")
                 try:
-                    silo["Content"][plural] += 1
+                    silo["Content"][plural] += 2
                 except KeyError:
-                    silo["Content"][plural] = 1
+                    silo["Content"][plural] = 2
             else:
                 print(f"No space in the silos for your {product}")
                 input("> ")

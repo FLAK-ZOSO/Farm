@@ -3,13 +3,14 @@
         "Password": "drowssaPyM",
         "Games": {
             "My First Game": {
-                "Money": 91340,
+                "Money": 90500,
                 "Experience": 10000,
-                "Level": 10,
+                "Foundation": "2022-03-10T16:20:49.672087",
+                "Level": 11,
                 "Silos": {
                     "Capacity": 150,
                     "Content": {
-                        "Grain": 90,
+                        "Grain": 10,
                         "Carrots": 20,
                         "Eggs": 2,
                         "Wool": 0
@@ -18,17 +19,17 @@
                 "Enclosures": [
                     {
                         "Capacity": 6,
-                        "Capacity left": 1,
-                        "Sheeps": 1,
+                        "Capacity left": 0,
+                        "Sheeps": 2,
                         "Hens": 3,
                         "Content": {
                             "Eggs": [
-                                "2022-03-10T16:20:49.672087",
-                                "2022-03-10T16:20:58.720344",
-                                "2022-03-10T16:21:04.253445"
+                                "[DONE]",
+                                "[DONE]",
+                                "[DONE]"
                             ],
                             "Wool": [
-                                "2022-03-10T16:20:41.523381"
+                                "[DONE]"
                             ]
                         }
                     }
@@ -40,7 +41,7 @@
                         ],
                         "Carrots": [
                             "[DONE]",
-                            "2022-03-10T22:04:35.896320"
+                            "[DONE]"
                         ]
                     },
                     {
@@ -51,7 +52,7 @@
                 "Shop": {
                     "Stats": {
                         "Sold": {
-                            "Grain": 40,
+                            "Grain": 120,
                             "Carrots": 0,
                             "Sheep": 1,
                             "Eggs": 6,
@@ -59,14 +60,14 @@
                         },
                         "Bought": {
                             "Sheep": 2,
-                            "Hen": 3,
+                            "Hen": 5,
                             "Field": 2,
                             "Enclosure": 1
                         }
                     },
                     "Availability": {
                         "Animals": {
-                            "Sheep": 1,
+                            "Sheep": 0,
                             "Hen": 2
                         },
                         "Buildings": {
@@ -77,16 +78,17 @@
                 }
             },
             "The Second Farm That I'll Soon Delete": {
-                "Money": 80382,
+                "Money": 20682,
                 "Experience": 0,
-                "Level": 0,
+                "Foundation": "2022-03-10T16:20:49.672087",
+                "Level": 9,
                 "Silos": {
                     "Capacity": 150,
                     "Content": {
-                        "Grain": 1,
-                        "Carrots": 3,
-                        "Wool": 3,
-                        "Eggs": 0
+                        "Grain": 0,
+                        "Carrots": 4,
+                        "Wool": 4,
+                        "Eggs": 2
                     }
                 },
                 "Enclosures": [
@@ -95,6 +97,18 @@
                         "Capacity left": 3,
                         "Sheeps": 2,
                         "Hens": 1,
+                        "Content": {
+                            "Eggs": [],
+                            "Wool": [
+                                "2022-03-12T21:19:31.489215"
+                            ]
+                        }
+                    },
+                    {
+                        "Capacity": 6,
+                        "Capacity left": 6,
+                        "Sheeps": 0,
+                        "Hens": 0,
                         "Content": {
                             "Eggs": [],
                             "Wool": []
@@ -113,10 +127,30 @@
                 ],
                 "Fields": [
                     {
-                        "Grain": [],
-                        "Carrots": [
+                        "Grain": [
                             "[DONE]"
-                        ]
+                        ],
+                        "Carrots": []
+                    },
+                    {
+                        "Grain": [
+                            "[DONE]"
+                        ],
+                        "Carrots": []
+                    },
+                    {
+                        "Grain": [
+                            "[DONE]"
+                        ],
+                        "Carrots": []
+                    },
+                    {
+                        "Grain": [],
+                        "Carrots": []
+                    },
+                    {
+                        "Grain": [],
+                        "Carrots": []
                     },
                     {
                         "Grain": [],
@@ -130,24 +164,24 @@
                             "Carrots": 0,
                             "Sheep": 0,
                             "Hen": 1,
-                            "Wool": 3,
+                            "Wool": 6,
                             "Eggs": 3
                         },
                         "Bought": {
                             "Sheep": 0,
                             "Hen": 0,
-                            "Field": 0,
-                            "Enclosure": 1
+                            "Field": 4,
+                            "Enclosure": 2
                         }
                     },
                     "Availability": {
                         "Animals": {
-                            "Sheep": 0,
-                            "Hen": 0
+                            "Sheep": 4,
+                            "Hen": 4
                         },
                         "Buildings": {
                             "Field": 1,
-                            "Enclosure": 0
+                            "Enclosure": 3
                         }
                     }
                 }
