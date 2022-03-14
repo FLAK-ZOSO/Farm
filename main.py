@@ -17,12 +17,23 @@ def main(user: str) -> None:
     while (True):
         a.cls.main()
         print(t.menu)
-        print(f"\n  {user}, welcome to the menu, make your choice.")
-        choice = input("> ")
+        print(f"\n  {user}, welcome to the menu, make your choice!")
+        choice = input("  > ")
         if (choice == '1'):
             games(user)
         elif (choice == '2'):
+            _help()
+        elif (choice == '3'):
             quit()
+
+
+def _help() -> None:
+    a.cls.main()
+    print("SYMBOLS\n")
+    for key, value in d.symbols().items():
+        if (not key.endswith('s')):
+            print(f"{key} -> {value}")
+    input("\n> ")
 
 
 def games(user: str) -> None:
@@ -204,7 +215,8 @@ def enclosure(user: str, game: str, n: int) -> None:
             choice = input("\n> ")
             if (choice == '1'):
                 for animal in animals:
-                    collect_animal(user, game, n, animal)
+                    while (collect_animal(user, game, n, animal)):
+                        pass
             elif (choice == '2'):
                 refresh(user, game)
             elif (choice == '3'):
@@ -299,7 +311,8 @@ def field(user: str, game: str, n: int) -> None:
             choice = input("\n> ")
             if (choice == '1'):
                 for crop in crops:
-                    collect_crop(user, game, n, crop)
+                    while (collect_crop(user, game, n, crop)):
+                        pass
             elif (choice == '2'):
                 refresh(user, game)
             elif (choice == '3'):
@@ -309,7 +322,7 @@ def field(user: str, game: str, n: int) -> None:
     input("\n> ")
 
 
-def collect_crop(user: str, game: str, n: int, crop: str) -> None:
+def collect_crop(user: str, game: str, n: int, crop: str) -> bool:
     a.cls.main()
     field_: dict[str, list[str]] = d.fields(user, game)[n]
     product = crop
@@ -326,17 +339,21 @@ def collect_crop(user: str, game: str, n: int, crop: str) -> None:
             else:
                 print(f"No space in the silos for your {product}")
                 input("> ")
-                silos(user, game)
-                return
+                return False
         else:
             print(f"No {product} is ready")
+            input("> ")
+            return False
     else:
         print(f"No {product} is growing")
+        input("> ")
+        return False
     dat = d.game(user, game)
     dat["Silos"] = silo
     dat["Fields"][n] = field_
     d.encode_game(user, game, dat)
     input("> ")
+    return True
 
 
 def produce_crop(user: str, game: str, n: int, crop: str) -> None:
@@ -378,7 +395,7 @@ def produce_animal(user: str, game: str, n: int, animal: str) -> None:
     input("> ")
 
 
-def collect_animal(user: str, game: str, n: int, animal: str) -> None:
+def collect_animal(user: str, game: str, n: int, animal: str) -> bool:
     a.cls.main()
     enclosure_: dict = d.enclosures(user, game)[n]
     animal_product = d.animal_product()
@@ -397,17 +414,20 @@ def collect_animal(user: str, game: str, n: int, animal: str) -> None:
             else:
                 print(f"No space in the silos for your {product}")
                 input("> ")
-                silos(user, game)
-                return
+                return False
         else:
             print(f"No {product} is ready")
+            return False
     else:
         print(f"No {product} is being produced")
+        input("> ")
+        return False
     dat = d.game(user, game)
     dat["Silos"] = silo
     dat["Enclosures"][n]["Content"] = content
     d.encode_game(user, game, dat)
     input("> ")
+    return True
 
 
 def shop(user: str, game: str) -> None:

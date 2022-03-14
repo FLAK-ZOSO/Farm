@@ -10,8 +10,8 @@
                 "Silos": {
                     "Capacity": 150,
                     "Content": {
-                        "Grain": 10,
-                        "Carrots": 20,
+                        "Grain": 12,
+                        "Carrots": 22,
                         "Eggs": 2,
                         "Wool": 0
                     }
@@ -36,11 +36,8 @@
                 ],
                 "Fields": [
                     {
-                        "Grain": [
-                            "[DONE]"
-                        ],
+                        "Grain": [],
                         "Carrots": [
-                            "[DONE]",
                             "[DONE]"
                         ]
                     },
@@ -78,37 +75,38 @@
                 }
             },
             "The Second Farm That I'll Soon Delete": {
-                "Money": 20682,
+                "Money": 17142,
                 "Experience": 0,
                 "Foundation": "2022-03-10T16:20:49.672087",
                 "Level": 9,
                 "Silos": {
                     "Capacity": 150,
                     "Content": {
-                        "Grain": 0,
-                        "Carrots": 4,
-                        "Wool": 4,
-                        "Eggs": 2
+                        "Grain": 5,
+                        "Carrots": 12,
+                        "Wool": 0,
+                        "Eggs": 0
                     }
                 },
                 "Enclosures": [
                     {
                         "Capacity": 6,
-                        "Capacity left": 3,
-                        "Sheeps": 2,
+                        "Capacity left": 0,
+                        "Sheeps": 5,
                         "Hens": 1,
                         "Content": {
                             "Eggs": [],
                             "Wool": [
-                                "2022-03-12T21:19:31.489215"
+                                "2022-03-14T15:13:38.742217",
+                                "2022-03-14T15:22:14.359291"
                             ]
                         }
                     },
                     {
                         "Capacity": 6,
-                        "Capacity left": 6,
+                        "Capacity left": 2,
                         "Sheeps": 0,
-                        "Hens": 0,
+                        "Hens": 4,
                         "Content": {
                             "Eggs": [],
                             "Wool": []
@@ -116,7 +114,7 @@
                     },
                     {
                         "Capacity": 6,
-                        "Capacity left": 6,
+                        "Capacity left": 0,
                         "Sheeps": 0,
                         "Hens": 0,
                         "Content": {
@@ -127,15 +125,11 @@
                 ],
                 "Fields": [
                     {
-                        "Grain": [
-                            "[DONE]"
-                        ],
+                        "Grain": [],
                         "Carrots": []
                     },
                     {
-                        "Grain": [
-                            "[DONE]"
-                        ],
+                        "Grain": [],
                         "Carrots": []
                     },
                     {
@@ -162,13 +156,13 @@
                         "Sold": {
                             "Grain": 11,
                             "Carrots": 0,
-                            "Sheep": 0,
+                            "Sheep": 13,
                             "Hen": 1,
-                            "Wool": 6,
-                            "Eggs": 3
+                            "Wool": 12,
+                            "Eggs": 6
                         },
                         "Bought": {
-                            "Sheep": 0,
+                            "Sheep": 2,
                             "Hen": 0,
                             "Field": 4,
                             "Enclosure": 2
@@ -176,12 +170,12 @@
                     },
                     "Availability": {
                         "Animals": {
-                            "Sheep": 4,
-                            "Hen": 4
+                            "Sheep": 3,
+                            "Hen": 15
                         },
                         "Buildings": {
-                            "Field": 1,
-                            "Enclosure": 3
+                            "Field": 16,
+                            "Enclosure": 18
                         }
                     }
                 }
