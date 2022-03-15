@@ -211,15 +211,23 @@ def enclosure(user: str, game: str, n: int) -> None:
                     else:
                         delta = (datetime.now() - datetime.fromisoformat(value_)).total_seconds()
                         print(f"-> {times[key] - int(delta)}s")
-            print(f"\n1) Collect all\n2) Refresh\n3) Back to enclosure")
+            print(f"\n1) Collect all\n2) Produce all\n3) Refresh\n4) Back to enclosure")
             choice = input("\n> ")
             if (choice == '1'):
                 for animal in animals:
                     while (collect_animal(user, game, n, animal)):
                         pass
+                enclosures(user, game)
+                return
             elif (choice == '2'):
-                refresh(user, game)
+                for animal in animals:
+                    while (produce_animal(user, game, n, animal)):
+                        pass
+                enclosures(user, game)
+                return
             elif (choice == '3'):
+                refresh(user, game)
+            elif (choice == '4'):
                 enclosure(user, game, n)
         enclosures(user, game)
         return
@@ -307,15 +315,23 @@ def field(user: str, game: str, n: int) -> None:
                     else:
                         delta = (datetime.now() - datetime.fromisoformat(value_)).total_seconds()
                         print(f"-> {times[key] - int(delta)}s")
-            print(f"\n1) Collect all\n2) Refresh\n3) Back to fields")
+            print(f"\n1) Collect all\n2) Produce all\n3) Refresh\n4) Back to fields")
             choice = input("\n> ")
             if (choice == '1'):
                 for crop in crops:
                     while (collect_crop(user, game, n, crop)):
                         pass
+                fields(user, game)
+                return
             elif (choice == '2'):
-                refresh(user, game)
+                for crop in crops:
+                    while (produce_crop(user, game, n, crop)):
+                        pass
+                fields(user, game)
+                return
             elif (choice == '3'):
+                refresh(user, game)
+            elif (choice == '4'):
                 fields(user, game)
     except ValueError:
         return
@@ -356,25 +372,26 @@ def collect_crop(user: str, game: str, n: int, crop: str) -> bool:
     return True
 
 
-def produce_crop(user: str, game: str, n: int, crop: str) -> None:
+def produce_crop(user: str, game: str, n: int, crop: str) -> bool:
     a.cls.main()
     field_: dict[str, list] = d.fields(user, game)[n]
     plural = f"{crop}s" if (crop.lower() in ["carrot"]) else crop
     if (sum([len(value) for value in field_.values()]) >= 4):
         print(f"Your field is already busy")
         input("> ")
-        return
+        return False
     field_[plural].append(datetime.now().isoformat())
     dat = d.game(user, game)
     if (dat["Silos"]["Content"][plural] < 1):
         print(f"No {crop} was found in the silos")
         input("> ")
-        return
+        return False
     dat["Silos"]["Content"][plural] -= 1
     print(f"Your {crop} is growing")
     dat["Fields"][n] = field_
     d.encode_game(user, game, dat)
     input("> ")
+    return True
 
 
 def produce_animal(user: str, game: str, n: int, animal: str) -> None:
@@ -386,13 +403,14 @@ def produce_animal(user: str, game: str, n: int, animal: str) -> None:
     if (len(content[plural]) >= enclosure_[f"{animal}s"]):
         print(f"Your {animal} is already busy")
         input("> ")
-        return
+        return False
     content[plural].append(datetime.now().isoformat())
     print(f"Your {animal} is producing {product}")
     dat = d.game(user, game)
     dat["Enclosures"][n]["Content"] = content
     d.encode_game(user, game, dat)
     input("> ")
+    return True
 
 
 def collect_animal(user: str, game: str, n: int, animal: str) -> bool:
