@@ -104,7 +104,8 @@ def refresh(user: str, game: str) -> None:
             dat["Level"] = index+1
             break
     if (dat["Level"] != previous_level):
-        d.encode_game(user, game, new_level(user, game, previous_level, dat["Level"]))
+        dat = new_level(user, game, previous_level, dat["Level"])
+        d.encode_game(user, game, dat)
     dat = d.game(user, game)
     print("Checking delays... [-   ]", end='\r')
     delays = d.times()
@@ -135,6 +136,7 @@ def refresh(user: str, game: str) -> None:
 
 def new_level(user: str, game: str, old: int, new: int) -> dict:
     dat = d.game(user, game)
+    dat["Level"] = new
     delta = new - old
     for k in dat["Shop"]["Availability"]["Animals"].keys():
         dat["Shop"]["Availability"]["Animals"][k] += delta

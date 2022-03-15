@@ -11,7 +11,7 @@ new_game = {
         "Capacity": 150,
         "Content": {
             "Grain": 10,
-            "Carrots": 0
+            "Carrots": 4
         }
     },
     "Enclosures": [
