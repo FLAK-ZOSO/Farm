@@ -478,7 +478,8 @@ def sell(user: str, game: str, item: str) -> int:
         availability = sum(items)
         price = d.prices()["Soldables"]["Animals"][item]
     elif (item in crops):
-        availability = dat["Silos"]["Content"][item]
+        plural = f"{item}s" if (item.lower() in ['carrot']) else item
+        availability = dat["Silos"]["Content"][plural]
         price = d.prices()["Soldables"]["Crops"][item]
     elif (item in animal_products):
         plural = f"{item}s" if (item.lower() in ("egg",)) else item
