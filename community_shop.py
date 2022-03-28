@@ -31,6 +31,9 @@ class MarketForUser:
     def __call__(self) -> None:
         self.mainloop()
 
+    def __del__(self) -> None:
+        ...
+
     def choice() -> bool:
         print("1) Take me to my market")
         print("2) Take me to the common market")
@@ -43,5 +46,27 @@ class MarketForUser:
         if (self.choice()):
             while True:
                 print(self, '\n')
+                # Do what is needed
         else:
             ...
+
+
+class SalesStall:
+    def __init__(self, market: Market, user: str, game: str):
+        self.user = user
+        self.game = game
+        self.market = market
+
+    def __call__(self) -> None:
+        self.mainloop()
+    
+    def mainloop(self) -> None:
+        while True:
+            print(self, '\n')
+            # Do what is needed
+
+
+def main(user: str, game: str) -> None:
+    m = Market()
+    mfu = MarketForUser(m, user, game)
+    ss = SalesStall(m, user, game)

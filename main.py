@@ -82,7 +82,7 @@ def farm(user: str, game: str) -> None:
     print("7) Back to my games\n")
     answers = {
         '1': silos, '2': enclosures, '3': fields, 
-        '4': shop, '5': community_shop.community_shop, '6': refresh
+        '4': shop, '5': community_shop.main, '6': refresh
     }
     while True:
         answer = input('> ')
