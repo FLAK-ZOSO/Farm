@@ -1,0 +1,50 @@
+{
+    "My First Game": {
+        "Offers": [
+            {
+                "Item": "Sheeps",
+                "Quantity": 4,
+                "Price": 1000
+            }
+        ],
+        "Wants": [
+            {
+                "Item": "Hens",
+                "Quantity": 10,
+                "Price": 100
+            }
+        ]
+    },
+    "The Second Farm That I'll Soon Delete": {
+        "Offers": [
+            {
+                "Item": "Hens",
+                "Quantity": 10,
+                "Price": 100
+            }
+        ],
+        "Wants": [
+            {
+                "Item": "Sheeps",
+                "Quantity": 4,
+                "Price": 1000
+            }
+        ]
+    },
+    "Third one": {
+        "Offers": [
+            {
+                "Item": "Sheeps",
+                "Quantity": 4,
+                "Price": 1000
+            }
+        ],
+        "Wants": [
+            {
+                "Item": "Hens",
+                "Quantity": 10,
+                "Price": 100
+            }
+        ]
+    }
+}

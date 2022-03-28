@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import account as a
+import community_shop
 import data as d
 from datetime import datetime
 import objects as o
@@ -76,18 +77,19 @@ def farm(user: str, game: str) -> None:
     print("2) Enclosures")
     print("3) Fields")
     print("4) Shop")
-    print("5) Refresh")
-    print("6) Back to my games\n")
+    print("5) Community shop")
+    print("6) Refresh")
+    print("7) Back to my games\n")
     answers = {
         '1': silos, '2': enclosures, '3': fields, 
-        '4': shop, '5': refresh
+        '4': shop, '5': community_shop.community_shop, '6': refresh
     }
     while True:
         answer = input('> ')
         try:
             answers[answer](user, game)
         except KeyError:
-            if (answer == '6'):
+            if (answer == '7'):
                 games(user)
             continue
         break

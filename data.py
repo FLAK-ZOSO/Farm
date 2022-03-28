@@ -84,3 +84,14 @@ def points_level() -> list[list[int]]:
     with open("points-level.json", 'r') as level_:
         data: list[list[int, int]] = json.load(level_)
     return data
+
+
+def community_shop() -> dict[str, dict[str, list[dict[str, str | int]]]]:
+    with open("community_shop.json", 'r') as shop_:
+        data: dict = json.load(shop_)
+    return data
+
+
+def encode_community_shop(data: dict[str, dict[str, list[dict[str, str | int]]]]) -> None:
+    with open("community_shop.json", 'w') as shop_:
+        json.dump(data, shop_, indent=4)

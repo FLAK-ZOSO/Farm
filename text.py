@@ -196,3 +196,23 @@ def shop_string(dat: dict, prices: dict) -> tuple[str, dict, dict]:
     for index, key in dictionary_s.items():
         output += f"    {int(index)+len(dictionary_p)}) {key} [{soldables[key]}$]\n"
     return output, dictionary_p, dictionary_s
+
+
+def community_shop_string(community_shop_: dict[str, dict[str, list[dict[str, str | int]]]], farm: str) -> str:
+    output = shop
+    for key, market_ in community_shop_.items():
+        if (key != farm):
+            output += key.upper()
+            output += "\nOFFERS:\n\n"
+            for offer in market_["Offers"]:
+                quantity = offer["Quantity"]
+                item = offer["Item"]
+                price = offer["Price"]
+                output += f"Will sell {quantity} {item} for {price}$ each\n"
+            output += "\nWANTS:\n\n"
+            for wanted in market_["Offers"]:
+                quantity = wanted["Quantity"]
+                item = wanted["Item"]
+                price = wanted["Price"]
+                output += f"Will buy {quantity} {item} for {price}$ each\n"
+    return output
