@@ -139,7 +139,7 @@ class Offers:
         print("Which offer do you want to delete?")
         answer = input("> ")
         while (True):
-            while (answer not in {'1', '2'}):
+            while (not answer or answer.isspace()):
                 answer = input("> ")
             try:
                 choice = int(choice)-1 # choice is now the index of the offer to delete
@@ -183,13 +183,89 @@ class Offers:
                 self.__delete_offer()
             else:
                 self.__make_offer()
+        del self
 
 
 class Requests:
-    def __init__(self, user: str, game: str) -> None:
+    def __init__(self, sales_stall: SalesStall, user: str, game: str) -> None:
         self.user = user
         self.game = game
-        self.content = data.community_shop()[game]["Requests"]
+        self.sales_stall = sales_stall
+        self.list = self.sales_stall.content["Requests"]
+
+    def __str__(self) -> str:
+        output = f"Your requests: "
+        for x, i in enumerate(self.list):
+            output += f"{x+1}) {i['Quantity']} {i['Item']} up to {i['Price']}$ for each"
+        return output
+
+    def __call__(self) -> None:
+        self.__mainloop()
+
+    def __choice(self) -> int:
+        os.system('cls')
+        print(self, '\n')
+        print("1) Make a request")
+        print("2) Delete a request")
+        print("3) Go back")
+        answer = input("> ")
+        while (answer not in {'1', '2', '3'}):
+            answer = input("> ")
+        if (answer == '3'):
+            return 2
+        return 1 if answer == '1' else 0
+
+    def __delete_request(self) -> None:
+        os.system('cls')
+        print(self, '\n')
+        print("Which request do you want to delete?")
+        answer = input("> ")
+        while (True):
+            while (not answer or answer.isspace()):
+                answer = input("> ")
+            try:
+                choice = int(choice)-1 # choice is now the index of the request to delete
+            except ValueError:
+                continue
+            if (choice <= len(self.list) and choice >= 0):
+                break
+        self.list.pop(choice)
+        print("Request deleted")
+        input("> ")
+        # Don't need to encode it since it's already been encoded by the market
+
+    def __make_request(self) -> None:
+        os.system('cls')
+        print("What do you want to offer? (Use plural where possible)")
+        item = input("> ")
+        while (item.capitalize() not in Constants.elements):
+            item = input("> ")
+        print(f"How many {item} do you want to offer?")
+        quantity = input("> ")
+        while (True):
+            try:
+                quantity = int(input("> "))
+                if (quantity <= 0):
+                    continue
+                break
+            except ValueError:
+                continue
+        print(f"How much would you pay for each {item.lower().removesuffix('s')}?")
+        price = input("> ")
+        self.list.append({"Item": item, "Quantity": quantity, "Price": price})
+        Offer(self.list[-1])()
+
+    def __mainloop(self) -> None:
+        while True:
+            os.system('cls')
+            print(self, '\n')
+            if (choice := self.__choice()):
+                if (choice == 2):
+                    break
+                self.__delete_request()
+            else:
+                self.__make_request()
+        del self
 
 
 class Offer: 
