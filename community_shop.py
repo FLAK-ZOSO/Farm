@@ -5,6 +5,13 @@ import os
 import text
 
 
+class Constants:
+    animals = {"Sheeps", "Hens"}
+    crops = {"Grain", "Carrots"}
+    animal_products = {"Eggs", "Wool"}
+    elements = animals | crops | animal_products
+
+
 class Market:
     def __init__(self) -> None:
         self.data = data.community_shop()
@@ -72,22 +79,29 @@ class SalesStall:
     def __call__(self) -> None:
         self.__mainloop()
 
-    def __choice(self) -> bool:
+    def __choice(self) -> int:
         os.system('cls')
-        print(self)
+        print(self, '\n')
         print("1) Go to offers")
         print("2) Go to requests")
+        print("3) Go back")
         answer = input("> ")
-        while (answer not in {'1', '2'}):
+        while (answer not in {'1', '2', '3'}):
             answer = input("> ")
-        return answer == '1' # 1 => True, 2 => False        
+        if (answer == '3'):
+            return 2
+        return 1 if answer == '1' else 0  
 
     def __mainloop(self) -> None:
         while True:
             os.system()
             print(self, '\n')
-            if (self.__choice()):
+            if (choice := self.__choice()):
+                if (choice == 2):
+                    break
                 Offers(self, self.user, self.game)()
+            else:
+                Requests(self, self.user, self.game)()
 
 
 class Offers:
@@ -106,22 +120,69 @@ class Offers:
     def __call__(self) -> None:
         self.__mainloop()
 
-    def __choice(self) -> bool:
+    def __choice(self) -> int:
         os.system('cls')
-        print(self)
-        print("1) Go to market")
-        print("2) Go to requests")
+        print(self, '\n')
+        print("1) Make an offer")
+        print("2) Delete an offer")
+        print("3) Go back")
         answer = input("> ")
-        while (answer not in {'1', '2'}):
+        while (answer not in {'1', '2', '3'}):
             answer = input("> ")
-        return answer == '1' # 1 => True, 2 => False
+        if (answer == '3'):
+            return 2
+        return 1 if answer == '1' else 0
+
+    def __delete_offer(self) -> None:
+        os.system('cls')
+        print(self, '\n')
+        print("Which offer do you want to delete?")
+        answer = input("> ")
+        while (True):
+            while (answer not in {'1', '2'}):
+                answer = input("> ")
+            try:
+                choice = int(choice)-1 # choice is now the index of the offer to delete
+            except ValueError:
+                continue
+            if (choice <= len(self.list) and choice >= 0):
+                break
+        self.list.pop(choice)
+        print("Offer deleted")
+        input("> ")
+        # Don't need to encode it back since it's already been encoded by the market
+
+    def __make_offer(self) -> None:
+        os.system('cls')
+        print("What do you want to offer? (Use plural where possible)")
+        item = input("> ")
+        while (item.capitalize() not in Constants.elements):
+            item = input("> ")
+        print(f"How many {item} do you want to offer?")
+        quantity = input("> ")
+        while (True):
+            try:
+                quantity = int(input("> "))
+                if (quantity <= 0):
+                    continue
+                break
+            except ValueError:
+                continue
+        print(f"How much do you want to earn for each {item.lower().removesuffix('s')}?")
+        price = input("> ")
+        self.list.append({"Item": item, "Quantity": quantity, "Price": price})
+        Offer(self.list[-1])()
 
     def __mainloop(self) -> None:
         while True:
             os.system('cls')
             print(self, '\n')
-            if (self.__choice()):
-                Requests(self.user, self.game)()
+            if (choice := self.__choice()):
+                if (choice == 2):
+                    break
+                self.__delete_offer()
+            else:
+                self.__make_offer()
 
 
 class Requests:
@@ -129,6 +190,19 @@ class Requests:
         self.user = user
         self.game = game
         self.content = data.community_shop()[game]["Requests"]
+
+
+class Offer: 
+    # Quite useless, it's only used to make the code inline when printing the offer
+    def __init__(self, dictionary: dict) -> None:
+        self.dictionary = dictionary
+
+    def __str__(self) -> str:
+        return f"{self.dictionary['Quantity']} {self.dictionary['Item']} for {self.dictionary['Price']}$ each"
+
+    def __call__(self) -> None:
+        print(self)
+        del self
 
 
 def main(user: str, game: str) -> None:
