@@ -15,7 +15,6 @@ class Constants:
 class Market:
     def __init__(self) -> None:
         self.data = data.community_shop()
-        asyncio.run(self.__update())
 
     def __str__(self) -> str:
         return text.community_shop_string(data.community_shop(), '')
@@ -23,7 +22,7 @@ class Market:
     def __len__(self) -> int:
         return len(self.data)
     
-    async def __update(self) -> None:
+    async def _update(self) -> None:
         while (True):
             if (self.data != data.community_shop()):
                 data.encode_community_shop(self.data)
@@ -282,6 +281,10 @@ class Offer:
 
 
 def main(user: str, game: str) -> None:
+    asyncio.run(main_(user, game))
+
+
+async def main_(user: str, game: str) -> None:
     m = Market()
-    mfu = MarketForUser(m, user, game)
-    mfu()
+    await m._update()
+    MarketForUser(m, user, game)()
