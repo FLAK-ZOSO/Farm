@@ -154,11 +154,10 @@ def silos(user: str, game: str) -> None:
     print(output)
     choice = input("> ")
     try:
-        good = dictionary[choice]
+        dictionary[choice]
     except KeyError:
         farm(user, game)
         return
-    # d.information(good)
 
 
 def enclosures(user: str, game: str) -> None:

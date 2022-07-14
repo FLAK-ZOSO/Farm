@@ -158,7 +158,6 @@ class Offers:
         while (item.capitalize() not in Constants.elements):
             item = input("> ")
         print(f"How many {item} do you want to offer?")
-        quantity = input("> ")
         while (True):
             try:
                 quantity = int(input("> "))
@@ -182,7 +181,6 @@ class Offers:
                 self.__delete_offer()
             else:
                 self.__make_offer()
-        del self
 
 
 class Requests:
@@ -240,7 +238,6 @@ class Requests:
         while (item.capitalize() not in Constants.elements):
             item = input("> ")
         print(f"How many {item} do you want to offer?")
-        quantity = input("> ")
         while (True):
             try:
                 quantity = int(input("> "))
@@ -264,7 +261,6 @@ class Requests:
                 self.__delete_request()
             else:
                 self.__make_request()
-        del self
 
 
 class Offer: 
@@ -277,7 +273,6 @@ class Offer:
 
     def __call__(self) -> None:
         print(self)
-        del self
 
 
 def main(user: str, game: str) -> None:
